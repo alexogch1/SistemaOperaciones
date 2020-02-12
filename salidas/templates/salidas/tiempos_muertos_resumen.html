@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+
+{% block page_content %}
+<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>fecha_produccion</th>
+                    <th>observaciones</th>
+                    <th>total_tm</th>
+                </tr>
+            </thead>
+            <tbody>
+			{% for item in consultas %}
+			<tr>
+				{% for i in item %}
+					<td>
+						{{ i }}
+					</td>
+				{% endfor %}
+			</tr>
+			
+			{% endfor %}
+	   </tbody>
+</table>
+{% endblock page_content %}

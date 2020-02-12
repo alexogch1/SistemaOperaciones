@@ -1,0 +1,90 @@
+<div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="col-xl-12 col-md-12 mb-12">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Buscar Presentación
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            
+                            <div class="row">
+                                    <table
+                                    id="tblPresenta"
+                                    data-pagination="true"
+                                    data-search="true"
+                                    data-show-columns="true"
+                                    data-show-fullscreen="true"
+                                    data-locale="es-NI"
+                                    >
+                                    <thead>
+                                      <th data-sortable="true" data-field="id">Id</th>        
+                                      <th data-sortable="true" data-field="id_presentacion">id_presentacion</th>
+                                      <th data-field="descripcion_presenta">Descripción</th>
+                                      <th data-field="peso_caja">Peso (Lbs)</th>
+                                      <th data-sortable="true" data-field="estado">estado</th>
+                                      <th class="all">Acciones</th>
+                                    </thead>
+                                    <tbody>
+                                      {% for item in obj %}
+                                      <tr>
+                                        <td>{{ item.id }}</td>
+                                        <td>{{ item.id_presentacion }}</td>
+                                        <td>{{ item.descripcion_presenta }}</td>
+                                        <td>{{ item.peso_caja }}</td>
+                                        <td>{{item.estado}}</td>
+                                        <td>
+                                            {% if item.estado %}
+                                            <button class="btn btn-warning btn-circle" id="btnSelect" 
+                                            onclick="seleccionarPresenta({{item.id}},'{{item.id_presentacion}}','{{item.descripcion_presenta}}', {{item.peso_caja}})">
+                                                <i class="far fa-hand-pointer"></i>
+                                            </button>
+                                            {% endif %}
+                                        </td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="row">
+                                <div class="col">
+                                    <!-- <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button> -->
+                                    <button type="button" id="btnCancelar" class="btn btn-success">
+                                            <!-- onclick="return cerrar_modal()" -->
+                                            Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="far fa-calendar-plus fa-2x text-gray-300"></i>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    {% block js_page %}
+    <script>
+        $(function () {
+            $("#btnCancelar").click(function(e){
+                e.preventDefault();
+                cerrar_modal();
+            });
+        });
+        $('#tblPresenta').bootstrapTable();
+        function seleccionarPresenta(id,id_presentacion,descripcion_presenta, peso_caja){
+            $("#id_presentacion").val(id_presentacion);
+            $("#peso_caja").val(peso_caja)
+            $("#descripcion_presenta").val(descripcion_presenta);
+            $("#btnCancelar").click();
+            $("#id_presentacion").select();
+            $("#id_presentacion").focus();
+        }
+    </script>
+    {% endblock %}

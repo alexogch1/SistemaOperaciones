@@ -1,0 +1,529 @@
+{% extends 'base/base.html'%}
+{% block page_content %}
+    <form method="post" id="frmProduccion">
+        {% csrf_token %}
+        <div class="col-xl-12 col-md-12 mb-12">
+            {% if encabezado %}
+            <div class="card border-left-warning shadow h-100 py-2">
+            {% else %}
+            <div class="card border-left-success shadow h-100 py-2">
+            {% endif %}
+                <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    {% if encabezado %} Editar {% else %} Nueva {% endif %} Produccion IQF/WP
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <div class="row">
+                                    <!-- Inicio Izquierda -->
+                                    <div class="col-6">
+                                        <!-- Inicio Encabezado -->
+                                        <div class="form-group row">
+                                            <label for="id_planta" class="col-sm-2 col-form-label">Planta:</label>
+                                            <div class="col-sm-10">
+                                               {{ form_enc.planta }} 
+                                            </div>
+                                        </div>
+                                 
+                                            <div class="form-group row">
+                                                <label for="id_linea" class="col-sm-2 col-form-label">Linea:</label>
+                                                <div class="col-sm-10">
+                                                   {{ form_enc.linea }} 
+                                                </div>
+                                            </div>
+                                 
+                                                <div class="form-group row">
+                                                    <label for="id_shift" class="col-sm-2 col-form-label">Turno:</label>
+                                                    <div class="col-sm-10">                       
+                                                       {{ form_enc.shift }} 
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="id_horas_turno" class="col-sm-2 col-form-label">Horas Turno:</label>
+                                                    <div class="col-sm-10">                       
+                                                       {{ form_enc.horas_turno }} 
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                        <label for="id_supervisor" class="col-sm-2 col-form-label">Supervisor:</label>
+                                                   <!-- <label for="id_supervisor" class="label for="id_supervisor" class="col-sm-3 col-form-label">Supervisor:</label> -->
+                                                    <div class="col-sm-10">
+                                                       {{ form_enc.supervisor }} 
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="id_plantilla" class="c
+                                                    <label for="id_supervisor" class="col-sm-3 col-form-label">Plantilla:</label>
+                                                    <div class="col-sm-10">
+                                                       {{ form_enc.plantilla }} 
+                                                    </div>
+                                                </div>
+                                                  
+                                        <div class="form-group row">
+                                            <div class="col-sm-5"></div>
+                                        </div>
+                               
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="id_fecha_produccion">Fecha Produccion:</label>
+                                                    {{form_enc.fecha_produccion}}
+                                                </div>
+                                                
+                                                    <div class="col">
+                                                    <label for="total_produccion">Total Produccion:</label>
+                                                    </div>
+                                                    <div class="col">
+                                                        {{ form_enc.total_produccion }}
+                                                    </div>
+                                                    
+                                                    <div class="col">
+                                                    <label for="total_produccion">Total Utilizado:</label>
+                                                    </div>
+                                                    <div class="col">
+                                                        {{ form_enc.total_utilizado }}
+                                                        </div>
+                                                    
+
+                                               
+                                                    <div class="col">
+                                                    <label for="total_produccion">Merma (%):</label>
+                                                    </div>
+                                                    <div class="col">
+                                                        {{ form_enc.total_merma }}
+                                                       </div>
+
+                                                       
+                                                     <br>
+                                            </div>
+                                             <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="id_descripcion">Observaciones:</label>
+                                                    {{ form_enc.observaciones }}
+                                                </div>
+                                                
+                                             
+
+                                            </div>
+
+                                            
+                                        </div>
+                                        <!-- Fin Encabezado -->
+                                    </div>
+                                    <!-- Fin Izquierda -->
+
+                                    
+
+                                    <!-- Inicio Derecha -->
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col">
+                                                <table class="table table-striped table-hover dt-responsive table-sm nowrap tbl-productos" style="width:100%">
+                                                    <thead>
+                                                        <th>Id</th>        
+                                                        <th class="all">Descripción</th>
+                                                        <th class="all">Acciones</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for item in productos %}
+                                                        <tr>
+                                                        <td>{{ item.id_producto }}</td>
+                                                        <td>{{ item.descripcion_prod }}</td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-warning btn-circle"
+                                                            onclick="selectProducto({{item.id}},'{{item.descripcion_prod}}',{{item.peso_caja}})" ><i class="far fa-hand-pointer"></i></button>
+                                                        </td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                      </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="id_id_producto" class="col-form-label">Producto</label>
+                                            
+                                            <div class="col-sm-2">
+                                                <input type="text" readonly class="form-control-plaintext" name="id_id_producto" id="id_id_producto" value="" required>
+                                            </div>
+                                            
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" id="id_descripcion_producto" value="" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                                  <label for="id_tproducto" class="col-sm-2.1 col-form-label">Tipo Producto</label>
+                                                 <div class="col-sm-4">
+                                                 <select type="text" step="any" class="form-control" name="id_tproducto" id="tproducto" required>
+                                                          <option value="TERMINADO">TERMINADO</option>
+                                                          <option value="PROCESO">PROCESO</option>
+                                                 </select>
+                                                 <!--  <input type="text" step="any" class="form-control" name="id_tproducto" id="id_tproducto" value="TERMINADO" required>-->
+                                                 </div>
+			                
+					                              <label for="id_cantidad_detalle" class="col-sm-1.4 col-form-label">Totes/Cajas:</label>
+                                        
+                                                <div class="col-sm-3">
+                                                <input type="number" step="any" class="form-control" name="id_cantidad_detalle" id="id_cantidad_detalle" value="0" required>
+                                                </div>
+                                        </div>
+                                       
+                                       <div class="form-group row">
+                                            <label for="id_peso_detalle" class="col-sm-2.1 col-form-label">Peso:</label>
+                                            
+                                            <div class="col-sm-3">
+                                                <input type="number" step="any" class="form-control" name="id_peso_detalle" id="id_peso_detalle" value="0" required>
+                                            </div> 
+                                       
+                                            <label for="id_resto_detalle" class="col-form-label">Resto:</label>
+                                                <div class="col-sm-6">
+                                                    <input type="number" step="any" class="form-control col-sm-5" name="id_resto_detalle" id="id_resto_detalle" value="0" >
+                                                </div> 
+                                      </div>
+                                           
+                                      <div class="form-group row">
+                                         <label for="id_total_detalle" class="col-form-label">Total Prod:</label>         
+                                            <div class="col-sm-3">
+                                              <input type="number" step="any"  readonly class="form-control col-sm-10" name="id_total_detalle" id="id_total_detalle" value="0">
+                                            </div> 
+                                         <label for="id_total_utilizado" class="col-form-label">Total Utilizado:</label>
+                                            <div class="col-sm-3">
+                                              <input type="number" step="any" class="form-control col-sm-10" name="id_total_utilizado" id="id_total_utilizado" value="0">
+                                             </div>
+                                     </div>
+                                            
+                                      <div class="form-group row">
+                                            <label for="id_r1_detalle" class="col-form-label">r1:</label>
+                                            <input type="number" step="any" class="form-control  col-sm-2" name="id_r1_detalle" id="id_r1_detalle" value="0" >
+                                      </div>
+
+                                            <div class="form-group row">
+                                                <label for="id_r2_detalle" class="col-form-label">r2:</label>
+                                                <input type="number" step = "any" class="form-control  col-sm-2" name="id_r2_detalle" id="id_r2_detalle" value="0" >
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="id_r3_detalle" class="col-form-label">r3:</label>
+                                                <input type="number" step = "any" class="form-control  col-sm-2" name="id_r3_detalle" id="id_r3_detalle" value="0" >
+                                            </div>    
+                    
+                                            <div class="form-group row">
+                                                <label for="id_r4_detalle" class="col-form-label">r4:</label>
+                                                <input type="number" step = "any" class="form-control  col-sm-2" name="id_r4_detalle" id="id_r4_detalle" value="0" >
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label for="id_r5_detalle" class="col-form-label">r5:</label>
+                                                <input type="number" step = "any" class="form-control  col-sm-2" name="id_r5_detalle" id="id_r5_detalle" value="0" >
+                                            </div>
+                                        </div>
+                                        </div>
+                                            
+                                            
+                                            <!-- <label for="id_merma_detalle" class="col-sm-2 col-form-label">Merma:</label>
+                                            <div class="col-sm-3">
+                                                <input type="number" readonly class="form-control-plaintext col-sm-10" name="id_merma_detalle" id="id_merma_detalle" value="00">
+                                            </div> -->
+                                            <div class="form-group row">
+                                            <div class="col-sm-1">
+                                                <button type="button" class="btn btn-sm col-sm-2" onclick="clear_Detail();"><i class="fa fa-minus-square" aria-hidden="true"></i></button>
+                                            </div>	
+                                        </div>
+                                      </div>
+                                        <!-- Botones -->
+                                        <div class="dropdown-divider"></div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                                                <a href="{% url 'salidas:produccion_cong_list' %}" class="btn btn-success"><i class="far fa-hand-point-left"></i> Cancelar</a>
+                                            </div>
+                                        </div>
+                                        <!-- Fin Botones -->
+                                    </div>
+                                    <!-- Fin Derecha -->
+                                </div>
+                                </div>
+                                </div>
+                </div>
+                                
+                                
+                                <!-- Inicio Detalle -->
+                                <div class="form-group row">
+                                        <div class="col-sm-10">                                    <div class="row">
+                                        <div class="col">
+                                            <table class="table table-striped table-hover dt-responsive nowrap" style="width:100%">
+                                                <thead>
+                                                    <th>Producto</th>        
+                                                    <th>Cajas/Totes</th>
+                                                    <th>Peso (lbs)</th>
+                                                    <th>Produccion (lbs)</th>
+                                                    <th>Utilizado (lbs)</th>
+                                                    <th>Merma (%)</th>
+                                                    <th>R1</th>
+                                                    <th>R2</th>
+                                                    <th>R3</th>
+                                                    <th>R4</th>
+                                                    <th>R5</th>
+                                                    <th class="all">Acciones</th>
+                                                </thead>
+                                                <tbody>
+                                                    {% for item in detalle %}
+                                                    <tr>
+                                                    <td>{{ item.producto }} </td>
+                                                    <td>{{ item.cantidad }}</td>
+                                                     <td>{{ item.peso }}</td>
+    
+                                                    <td>{{ item.total_produccion }}</td>
+                                                    <td>{{ item.total_utilizado }}</td>
+                                                    <td>{{ item.total_merma }}</td>
+                                                    <td>{{ item.r1 }}</td>
+                                                    <td>{{ item.r2 }}</td>
+                                                    <td>{{ item.r3 }}</td>
+                                                    <td>{{ item.r4 }}</td>
+                                                    <td>{{ item.r5 }}</td>
+
+                                                    
+                                                    <td>
+                                                        <button class="btn btn-danger btn-circle" onclick="return abrir_modal('{% url 'salidas:produccion_cong_del' encabezado.pk item.id %}')"><i class="fas fa-trash-alt"></i></button>
+                                                    </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                        </div>
+                                    <!-- Fin Detalle -->
+                                </div>
+                                
+                            </div>
+                        </div>
+                </div>
+        </div>
+    </form>
+{% endblock %}
+{% block js_page %}
+<script> 
+    $(function () {
+        $("#id_fecha_produccion, #id_fecha_produccion").datetimepicker({
+            format: 'Y-m-d',
+            timepicker:false,
+            datepicker:true
+        });
+        
+        $("#sidebarToggle").click();
+        $('.table').DataTable({
+            "pageLength": 5,
+            "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "<span class='fa fa-angle-double-left'></span>",
+                "sLast": "<span class='fa fa-angle-double-right'></span>",
+                "sNext": "<span class='fa fa-angle-right'></span>",
+                "sPrevious": "<span class='fa fa-angle-left'></span>"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+            }
+        });
+        $('#id_cantidad_detalle,#id_peso_detalle,#id_resto_detalle').change(function(){
+            calcular_detalle();
+        });
+
+        $('#id_cantidad_detalle,#id_r1_detalle, #id_r2_detalle, #id_r3_detalle, #id_r4_detalle, #id_r5_detalle, #id_resto_detalle').change(function(){
+            calcular_rs();
+        });
+
+        $('#id_total_detalle,#id_total_utilizado').change(function(){
+            calcular_merma();
+        });
+
+        /*Validar Envío de Detalle */
+        $("#frmProduccion").submit(function(e){
+            if($('#id_total_detalle').val()==0 || $('#id_id_producto').val()==0 ){
+                e.preventDefault();
+                //alert("No ha agregado producto o está sin cantidades");
+                $.alert({
+                        type:'red',
+                        title:'',
+                        content:'No ha agregado producto o está sin cantidades'
+                        })
+            }
+        });
+        /*Fin Validar Envío de Detalle */
+        });
+    
+        function selectProducto(id,descripcion, peso_caja)
+    {
+        $("#id_cantidad_detalle").val(0);
+        $('#id_total_detalle').val(0);
+        $('#id_peso_detalle').val(0);
+        $('#id_total_utilizado').val(0);
+        $('#id_merma_detalle').val(0);
+        $('#id_resto_detalle').val(0);
+        $('#id_peso_detalle').val(peso_caja);
+        $('#id_r1_detalle').val(0);
+        $('#id_r2_detalle').val(0);
+        $('#id_r3_detalle').val(0);
+        $('#id_r4_detalle').val(0);
+        $('#id_r5_detalle').val(0);
+        $("#id_id_producto").val(+id);
+        $('#id_descripcion_producto').val(descripcion);
+        $('#id_tproducto').val(tproducto);
+        $('#id_cantidad_detalle').select();
+        $('#id_cantidad_detalle').focus();
+        $('.table').DataTable().search('').draw();
+    }
+
+    function calcular_rs()
+    {
+        var cant,r1,r2,r3,r4,r5,resto,peso;
+        
+        peso = $("#id_peso_detalle").val();
+        peso = peso==="" ? 0 : +peso;
+        peso = peso<0 ? 0 : peso;
+
+
+        cant = $("#id_cantidad_detalle").val();
+        cant = cant==="" ? 0 : +cant;
+        cant = cant<0 ? 0 : cant;
+
+        resto = $("#id_resto_detalle").val();
+        resto = resto==="" ? 0 : +resto;
+        resto = resto<0 ? 0 : resto;
+
+        r2 = $("#id_r2_detalle").val();
+        r2 = r2==="" ? 0 : +r2;
+        r2 = r2<0 ? 0 : r2;
+
+        r3 = $("#id_r3_detalle").val();
+        r3 = r3==="" ? 0 : +r3;
+        r3 = r3<0 ? 0 : r3;
+
+        r4 = $("#id_r4_detalle").val();
+        r4 = r4==="" ? 0 : +r4;
+        r4 = r4<0 ? 0 : r4;
+
+        r5 = $("#id_r5_detalle").val();
+        
+        r5 = r5==="" ? 0 : +r5;
+        r5 = r5<0 ? 0 : r5;
+
+        if (resto>=peso)
+        {
+            alert ('el valor del resto no debe ser igual o mayor que el peso de la clave');
+            $("#id_resto_detalle").val(0);
+            resto=0;
+
+        }
+        else {
+            if(resto<peso && resto>0 )
+            {
+                cantidad = cant + 1;
+            }
+            else
+            {
+                cantidad = cant;
+            }
+
+            r1 = cantidad-(r2+r3+r4+r5);
+            
+        }
+        if (r1>0){
+            $('#id_r1_detalle').val(r1);
+        }
+        else
+        {
+            alert('no puede haber valores negativos en las Rs, favor de revisar sus datos' );
+            $('#id_r2_detalle').val(0);
+            $('#id_r3_detalle').val(0);
+            $('#id_r4_detalle').val(0);
+            $('#id_r5_detalle').val(0);
+        }  
+        
+    }
+    
+
+    function calcular_detalle()
+    {
+        var cant,peso,resto,total, utilizado;
+
+        cant = $("#id_cantidad_detalle").val();
+        cant = cant==="" ? 0 : +cant;
+        cant = cant<0 ? 0 : cant;
+
+        peso =$('#id_peso_detalle').val();
+        peso = peso==="" ? 0 : +peso;
+        peso = peso<0 ? 0 : peso;
+
+        resto =$('#id_resto_detalle').val();
+        resto = resto==="" ? 0 : +resto;
+        resto = resto<0 ? 0 : resto;
+
+        total = (cant * peso)+resto;
+        
+        $('#id_cantidad_detalle').val(cant);
+        $('#id_peso_detalle').val(peso);
+        $('#id_total_detalle').val(total);
+    }
+
+    function calcular_merma()
+    {
+        var total, utilizado, merma;
+
+        total  =$('#id_total_detalle').val();
+        total = total==="" ? 0 : +total;
+        total = total<0 ? 0 : total;
+
+        utilizado  =$('#id_total_utilizado').val();
+        utilizado = utilizado==="" ? 0 : +utilizado;
+        utilizado = utilizado<0 ? 0 : total;
+
+
+        merma = (total - utilizado)/total ;
+
+        $('#id_merma_detalle').val(merma);
+    }
+
+    function clear_Detail(){
+        $('#id_cantidad_detalle').val(0);
+        $('#id_peso_detalle').val(0);
+        
+        
+        $('#id_total_detalle').val(0);
+        $('#id_total_utilizado').val(0);
+        
+        $('#id_merma_detalle').val(0);
+        $('#id_producto').val('');
+        $('#id_descripcion_producto').val('');
+        $('#id_id_tproducto').val('');
+        $('#id_r1_detalle').val('0');
+        $('#id_r2_detalle').val('0');
+        $('#id_r3_detalle').val('0');
+        $('#id_r4_detalle').val('0');
+        $('#id_r5_detalle').val('0');
+        $('.table').DataTable().search('').draw();
+        $("#id_planta").focus();
+
+    }
+    $("#id_planta").focus();
+</script>
+{% endblock %}

@@ -1,0 +1,87 @@
+<div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="col-xl-12 col-md-12 mb-12">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Buscar Marca
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            
+                            <div class="row">
+                                    <table
+                                    id="tblMarca"
+                                    data-pagination="true"
+                                    data-search="true"
+                                    data-show-columns="true"
+                                    data-show-fullscreen="true"
+                                    data-locale="es-NI"
+                                    >
+                                    <thead>
+                                      <th data-sortable="true" data-field="id">Id</th>        
+                                      <th data-sortable="true" data-field="id_marca">id_marca</th>
+                                      <th data-field="descripcion_marca">Marca</th>
+                                      <th data-sortable="true" data-field="estado">estado</th>
+                                      <th class="all">Acciones</th>
+                                    </thead>
+                                    <tbody>
+                                      {% for item in obj %}
+                                      <tr>
+                                        <td>{{ item.id }}</td>
+                                        <td>{{ item.id_marca }}</td>
+                                        <td>{{ item.descripcion_marca }}</td>
+                                        <td>{{item.estado}}</td>
+                                        <td>
+                                            {% if item.estado %}
+                                            <button class="btn btn-warning btn-circle" id="btnSelect" 
+                                            onclick="seleccionarMarca({{item.id}},'{{item.id_marca}}','{{item.descripcion_marca}}')">
+                                                <i class="far fa-hand-pointer"></i>
+                                            </button>
+                                            {% endif %}
+                                        </td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="row">
+                                <div class="col">
+                                    <!-- <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button> -->
+                                    <button type="button" id="btnCancelar" class="btn btn-success">
+                                            <!-- onclick="return cerrar_modal()" -->
+                                            Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="far fa-calendar-plus fa-2x text-gray-300"></i>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    {% block js_page %}
+    <script>
+        $(function () {
+            $("#btnCancelar").click(function(e){
+                e.preventDefault();
+                cerrar_modal();
+            });
+        });
+        $('#tblMarca').bootstrapTable();
+        function seleccionarMarca(id,id_marca,descripcion_marca){
+            $("#id_marca").val(id_marca);
+            $("#descripcion_marca").val(descripcion_marca);
+            $("#btnCancelar").click();
+            $("#id_marca").select();
+            $("#id_marca").focus();
+        }
+    </script>
+    {% endblock %}

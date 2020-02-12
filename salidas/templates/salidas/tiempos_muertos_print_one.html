@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Detalle de Tiempos Muertos por Turno</title>
+
+    <style type="text/css">
+    @page {
+        size: letter;
+        margin: 1cm;
+    }
+    .table td .numero{
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4>Sistema de Captura de Datos y Productividad</h4>
+            </div>
+
+            <div class="list-group">
+                <p>No. Producción: {{ encabezado.id}} </p>
+                <table class="">
+                    <tbody>
+                        <tr>
+                            <td>Planta:</td>
+                            <td>{{ encabezado.planta}}</td>
+                            <td>Fecha Producción:</td>
+                            <td>{{ encabezado.fecha_produccion|date:"d/m/Y"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Linea:</td>
+                            <td>{{ encabezado.linea}}</td>
+                            <td>Supervisor:</td>
+                            <td>{{ encabezado.supervisor}}</td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>Observaciones:</td>
+                            <td colspan="3">{{encabezado.observaciones}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+            </div>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                       
+                        
+                        <th>Causa</th>
+                        <th>Tiempo Muerto (min)</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in detalle %}
+                    <tr>
+                        
+                        <td class="numero">{{ item.causa }}</td>
+                        <td class="numero">{{ item.cantidad }}</td>
+                        <td class="numero">{{ item.obs }}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td><h4>Total Tiempo Muerto</h4></td>
+                        <td class="numero"><h4>{{ encabezado.total_tm}} minutos</h4></td>
+                     
+                        </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+

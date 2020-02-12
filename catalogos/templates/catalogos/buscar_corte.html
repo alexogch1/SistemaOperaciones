@@ -1,0 +1,87 @@
+<div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="col-xl-12 col-md-12 mb-12">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Buscar Corte
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            
+                            <div class="row">
+                                    <table
+                                    id="tblCorte"
+                                    data-pagination="true"
+                                    data-search="true"
+                                    data-show-columns="true"
+                                    data-show-fullscreen="true"
+                                    data-locale="es-NI"
+                                    >
+                                    <thead>
+                                      <th data-sortable="true" data-field="id">Id</th>        
+                                      <th data-sortable="true" data-field="id_corte">id_corte</th>
+                                      <th data-field="descripcion">Descripción</th>
+                                      <th data-sortable="true" data-field="estado">estado</th>
+                                      <th class="all">Acciones</th>
+                                    </thead>
+                                    <tbody>
+                                      {% for item in obj %}
+                                      <tr>
+                                        <td>{{ item.id }}</td>
+                                        <td>{{ item.id_corte }}</td>
+                                        <td>{{ item.descripcion_corte }}</td>
+                                        <td>{{item.estado}}</td>
+                                        <td>
+                                            {% if item.estado %}
+                                            <button class="btn btn-warning btn-circle" id="btnSelect" 
+                                            onclick="seleccionarCorte({{item.id}},'{{item.id_corte}}','{{item.descripcion_corte}}')">
+                                                <i class="far fa-hand-pointer"></i>
+                                            </button>
+                                            {% endif %}
+                                        </td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="row">
+                                <div class="col">
+                                    <!-- <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button> -->
+                                    <button type="button" id="btnCancelar" class="btn btn-success">
+                                            <!-- onclick="return cerrar_modal()" -->
+                                            Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="far fa-calendar-plus fa-2x text-gray-300"></i>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    {% block js_page %}
+    <script>
+        $(function () {
+            $("#btnCancelar").click(function(e){
+                e.preventDefault();
+                cerrar_modal();
+            });
+        });
+        $('#tblCorte').bootstrapTable();
+        function seleccionarCorte(id,id_corte,descripcion){
+            $("#id_corte").val(id_corte);
+            $("#descripcion_corte").val(descripcion);
+            $("#btnCancelar").click();
+            $("#id_corte").select();
+            $("#id_corte").focus();
+        }
+    </script>
+    {% endblock %}

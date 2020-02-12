@@ -1,0 +1,274 @@
+{% extends 'base/base.html'%}
+{% block page_content %}
+<form method="POST" id="frmProduct">
+        {% csrf_token %}
+    <div class="card shadow mb-4 ">
+        <div class="card header py-3 d-flex flex-row allign-item-center justify-content-between">
+            <!--<a href='#' class="btn btn-danger">Guardar</a> -->
+            <!-- <a href='#' class="btn btn-success">Imprimir</a> -->
+            
+            
+        </div>
+        <div class="card-body">
+            <div class="content">
+                <!-- Seccion Superior -->
+                <div class="row">
+                    <!-- Seccion Izquierda -->
+                    <div class="col-lg-12 ">
+    
+                                <!--Selección del Ingrediente-->
+                                <div class="row p-8">
+                                    <div class="col-lg-1">Ingred.</div>
+                                    <div class="col-lg-2">
+                                        <input type="text" class="form-control" name="id_ingred" id="id_ingred" placeholder="Id Ingred" disabled>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="text" class="form-control" name="descripcion_ing" id="descripcion_ing" placeholder="Ingrediente" disabled>
+                                    </div>
+                                    
+                                    <div class="col-lg-1">
+                                        <button type="button" class="btn btn-info" id="btnBuscarIng">
+                                            <i class="fab fa-searchengin"></i>
+                                        </button>
+                                    </div>
+                                </div>
+    
+                                <br>
+                                    <!-- Selección del tipo de corte -->
+                                    <div class="row p-8">
+                                            <div class="col-lg-1">Corte</div>
+                                            <div class="col-lg-2">
+                                                <input type="text" class="form-control" name="id_corte" id="id_corte" placeholder="Id Corte" disabled>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control" name="descripcion_corte" id="descripcion_corte" placeholder="Corte" disabled>
+                                            </div>
+                                            
+                                            <div class="col-lg-1">
+                                                <button type="button" class="btn btn-info" id="btnBuscarCorte">
+                                                    <i class="fab fa-searchengin"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    <br>
+                                    <!-- Selección del tipo de Presentaciòn -->
+                                    <div class="row p-10">
+                                            <div class="col-lg-1">Present.</div>
+                                            <div class="col-lg-2">
+                                                <input type="text" class="form-control" name="id_presentacion" id="id_presentacion" placeholder="Id Presentación" disabled>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control" name="descripcion_presenta" id="descripcion_presenta" placeholder="Presentación" disabled>
+                                            </div>
+                                            <div class="col-lg-1">
+                                                <input type="text" class="form-control" name="peso_caja" id="peso_caja" placeholder="Peso Caja (Lbs)"  disabled  >
+                                            </div>
+                                            <div class="col-lg-1">
+                                                <button type="button" class="btn btn-info" id="btnBuscarPresenta">
+                                                    <i class="fab fa-searchengin"></i>
+                                                </button>
+                                            </div>
+                                            
+                                        </div>
+    
+                                    <br>
+                                    <!-- Selección de la Marca -->
+                                    <div class="row p-8">
+                                        <div class="col-lg-1">Marca</div>
+                                        <div class="col-lg-2">
+                                            <input type="text" class="form-control" name="id_marca" id="id_marca" placeholder="Id Marca" disabled>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <input type="text" class="form-control" name="descripcion_marca" id="descripcion_marca" placeholder="Marca" disabled>
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <button type="button" class="btn btn-info" id="btnBuscarMarca">
+                                                <i class="fab fa-searchengin"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+    
+                                    <br>
+                                    <!-- Selección del Caso Especial -->
+                                    <div class="row p-8">
+                                        <div class="col-lg-1">Caso Esp</div>
+                                        <div class="col-lg-2">
+                                            <input type="text" class="form-control" name="id_ce" id="id_ce" placeholder="Id CE" disabled>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <input type="text" class="form-control" name="descripcion_ce" id="descripcion_ce" placeholder="Caso Esp." disabled>
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <button type="button" class="btn btn-info" id="btnBuscarCE">
+                                                <i class="fab fa-searchengin"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                    </div>            
+                        </div>
+    
+                    
+      
+                    <!--Fin Seccion Izquierda -->
+                    <!--Seccion Derecha-->
+                    <div class="col-lg-6">
+                            <div class="col-lg-12 ">    
+                                    <div class="col-lg-1">
+                                            <br>
+                                            <br>
+                                            <p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="generar_producto()">Generar Producto </a></p>
+                                        </button> 
+                                    </div> 
+                                </div>
+    
+    
+                                    <br>
+                                    <!-- id Producto -->
+                                    <div class="row p-8">
+                                    <div class="col-lg-2">Id Producto</div>
+                                    <div class="col-lg-10">
+                                        <!--<input type="text" class="form-control" name="id_producto" id="id_producto" placeholder="Id Producto" disabled> -->
+                                        {{ form.id_producto }}
+                                    </div>
+                                </div>
+    
+                                    <div class="col-lg-18 "></div>
+                                    <br>
+                                    <!-- id Producto -->
+                                    <div class="row p-12">
+                                        <div class="col-lg-2">Producto</div>
+                                        <div class="col-lg-10">
+                                            <!-- <input type="text" class="form-control" name="descripcion_prod" id="descripcion_prod" placeholder="Producto" disabled> -->
+                                            {{ form.descripcion_prod }}
+                                            <br>
+                                        </div>
+                                         <div class="col-lg-2">Peso Caja</div>
+                                        <div class="col-lg-10">
+                                                
+                                        <!--    <input type="text" class="form-control" name="peso_caja" id="peso_caja" placeholder="Peso Caja" disabled> -->
+                                            {{ form.peso_caja }}
+                                        </div>
+                                        <br> <br>
+                                        <button class="btn btn-danger" type="submit">Guardar Producto</button>
+                                        <a href="{% url 'catalogos:producto_list' %}" class="btn btn-info">Cancelar</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-1">
+                                        <button type="button" class="btn btn-sm col-sm-2" onclick="clear_Detail();"><i class="fa fa-minus-square" aria-hidden="true"></i></button>
+                                        
+                                    </div>	  
+                                    
+                                    
+                                    
+    
+                    </div>
+                    <!--Fin Seccion Derecha -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</form>
+
+{% endblock page_content %}
+
+{% block js_page %}
+
+<script>
+
+    $(function ()
+    {
+        $("#sidebarToggleTop").click();
+
+        
+    });
+
+
+    $("#btnBuscarIng").click(function(e)
+    {
+        abrir_modal("{% url 'catalogos:producto_ingred' %}");
+    });
+
+    $("#btnBuscarCorte").click(function(e)
+        {
+            abrir_modal("{% url 'catalogos:producto_corte' %}");
+        });
+
+        $("#btnBuscarPresenta").click(function(e)
+        {
+            abrir_modal("{% url 'catalogos:producto_presenta' %}");
+        });
+
+        $("#btnBuscarMarca").click(function(e)
+        {
+            abrir_modal("{% url 'catalogos:producto_marca' %}");
+        });
+
+        $("#btnBuscarCE").click(function(e)
+        {
+            abrir_modal("{% url 'catalogos:producto_ce' %}");
+        });
+    
+    
+        function generar_producto()
+    {
+        var id_ingred, id_corte, id_presentacion, id_marca, id_ce, descripcion_ing,
+        descripcion_corte, descripcion_presenta, descripcion_marca, descripcion_ce, peso_caja
+        id_ingred = $("#id_ingred").val();
+        id_corte = $("#id_corte").val();
+        id_presentacion = $("#id_presentacion").val();
+        id_marca = $("#id_marca").val();
+        id_ce = $("#id_ce").val();
+        descripcion_ing = $("#descripcion_ing").val();
+        descripcion_corte =$("#descripcion_corte").val();
+        descripcion_presenta =$("#descripcion_presenta").val();
+        descripcion_marca = $("#descripcion_marca").val();
+        descripcion_ce = $("#descripcion_ce").val()
+        peso_caja = $("#peso_caja").val()
+        if(descripcion_ce==="--")
+            {
+                descripcion_ce = ""
+            }
+            else{
+                descripcion_ce = $("#descripcion_ce").val()
+            }
+        
+        
+        id_producto = id_ingred + id_corte + id_presentacion + id_marca + id_ce
+        descripcion_prod = descripcion_ing + " " 
+         + descripcion_corte + " " + descripcion_presenta + " " + descripcion_marca 
+         + " " + descripcion_ce
+
+        $("#id_producto").val(id_producto);
+        $("#descripcion_prod").val(descripcion_prod);
+        $("#id_id_producto").val(id_producto)
+        $("#id_descripcion_prod").val(descripcion_prod)
+        $("#id_peso_caja").val(peso_caja)
+
+
+
+    };
+        
+    function clear_Detail(){
+        alert('se limpiara la  pantalla')
+        $("#id_ingred").val('');
+        $("#id_corte").val('');
+        $("#id_presentacion").val('');
+        $("#id_marca").val('');
+        $("#id_ce").val('');
+        $("#id_producto").val('');
+        $("#descripcion_ing").val('');
+        $("#descripcion_corte").val('');
+        $("#descripcion_marca").val('');
+        $("#descripcion_presenta").val('');
+        $("#peso_caja").val('');
+        $("#descripcion_ce").val('');
+        $("#descripcion_prod").val('');
+        $("#id_ingred").focus();
+    };
+  
+</script>
+{% endblock js_page %}

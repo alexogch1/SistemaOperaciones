@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+  
+{% block page_content %}
+<div class="card shadow mb-4">
+  <!-- Card Header - Dropdown -->
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Listado de Productos</h6>
+    <!-- <div class="dropdown no-arrow">
+      <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+        <div class="dropdown-header">Acciones:</div>
+        <a class="dropdown-item" onclick="return abrir_modal('{% url 'catalogos:cliente_new' %}')" href="#"><i class="far fa-calendar-plus"></i> Nuevo Cliente</a>
+      </div>
+    </div> -->
+  </div>
+  <!-- Card Body -->
+  <div class="card-body">
+    {% if not obj %}
+    <div class="alert alert-info">No hay Productos Registrados</div>
+    {% endif %}
+    <div class="buttons-toolbar">
+        <a class="btn btn-success"  href="{% url 'catalogos:producto_new' %}"><i class="far fa-calendar-plus"></i>Nuevo Producto</a>
+        <a class="dropdown-item" href="{% url 'catalogos:producto_reporte_xls_all' %}" ><i class="far fa-printer"></i> Catalogo Productos XLS</a>
+    </div>
+    <!-- <table class="table table-striped table-hover dt-responsive nowrap" style="width:100%"> -->
+      <table
+      id="table"
+      data-toggle='table'
+      data-pagination="true"
+      data-search="true"
+      data-show-columns="true"
+      data-show-toggle="true"
+      data-show-fullscreen="true"
+      data-toolbar=".buttons-toolbar"
+      data-locale="es-MX"
+      >
+      <thead>
+          <th data-sortable="true" data-field="id">No</th>        
+          <th data-sortable="true" data-field="id_product">id Producto</th>
+          <th data-sortable="true" data-field="product">Producto</th>
+          <th data-field="estado">Estado</th>
+
+     
+        <th class="all">Acciones</th>
+      </thead>
+      <tbody> 
+        {% for item in obj %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.descripcion_prod }}</td>
+            <td>{{ item.id_producto }}</td>
+
+         
+          <td >{#item.estado|yesno:"Activo,Inactivo"#}
+              <div onclick="inactivar({{item.id}})">
+                  {% if item.estado %}
+                  <i class="far fa-thumbs-up text-primary"></i>
+                {% else %}
+                  <i class="far fa-thumbs-down text-danger"></i>
+                {% endif %}
+              </div>
+            </td>
+            <td>
+            <button class="btn btn-warning btn-circle" onclick="return abrir_modal('{% url 'catalogos:producto_edit' item.id %}')"><i class="far fa-edit"></i></button>
+             
+              
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+{% block js_page %}
+<script>
+
+
+
+</script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base/base.html'  %}
+{% block page_content %}
+<div class="card shadow mb-4 ">
+    <div class="card header py-3 d-flex flex-row allign-item-center justify-content-between">
+        <a href='#' class="btn btn-danger">Guardar</a><a href='#' class="btn btn-info">Cancelar</a>
+        <a href='#' class="btn btn-success">Imprimir</a>
+        <a href="{% url 'catalogos:producto_list' %}" class="btn btn-info">Cancelar</a>
+    </div>
+    <div class="card-body">
+        <div class="content">
+            <!-- Seccion Superior -->
+            <div class="row">
+                <!-- Seccion Izquierda -->
+                <div class="col-lg-6">
+                    Seccion Izquierda
+                </div>
+                <!--Fin Seccion Izquierda -->
+                <!--Seccion Derecha-->
+                <div class="col-lg-6">
+                        Seccion Derecha
+                </div>
+                <!--Fin Seccion Derecha -->
+            </div>
+            <!--Fin Seccion Superior -->
+            <!--Inicio Detalle -->
+            <hr>
+            <div class="row p1">
+
+            </div>
+            <!--Fin Detalle -->
+        </div>
+    </div>
+</div>
+
+{% endblock page_content %}
+{% block js_page %}
+<script>
+    $(function (){
+        $("#sidebartoogle").click();
+    });
+</script>
+{% endblock js_page %}
