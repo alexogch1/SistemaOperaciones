@@ -29,17 +29,17 @@ TiemposMuertosEncApiList, TiemposMuertosEncApiDetalle, \
 from rest_framework.authtoken import views
 
 router = DefaultRouter()
-#router.register ('v2/Ingreds',IngredViewSet,base_name='Ingreds'),
-#router.register ('v2/Cortes',CorteViewSet,base_name='Cortes')
-#router.register ('v2/Presenta',PresentaViewSet,base_name='Presentacion')
-#router.register ('v2/Cliente',ClienteViewSet,base_name='Cliente')
-#router.register ('v2/Marca',MarcaViewSet,base_name='Marca')
-#router.register ('v2/CE',CEViewSet,base_name='CasoEspe')
-#router.register('v2/Producto',ProductoViewSet, base_name='Products')
-#router.register('v2/ProduccionEnc',ProduccionEncViewSet, base_name='ProdEnc')
-#router.register('v2/ProduccionDet',ProduccionDetViewSet, base_name='ProdDet')
-#router.register('v2/CatTM',CatTMViewSet,base_name='CatTM')
-#router.register('v2/CausaTM',CausaTMViewSet,base_name='CausaTM')
+router.register ('v2/Ingreds',IngredViewSet,base_name='Ingreds'),
+router.register ('v2/Cortes',CorteViewSet,base_name='Cortes')
+router.register ('v2/Presenta',PresentaViewSet,base_name='Presentacion')
+router.register ('v2/Cliente',ClienteViewSet,base_name='Cliente')
+router.register ('v2/Marca',MarcaViewSet,base_name='Marca')
+router.register ('v2/CE',CEViewSet,base_name='CasoEspe')
+router.register('v2/Producto',ProductoViewSet, base_name='Products')
+router.register('v2/ProduccionEnc',ProduccionEncViewSet, base_name='ProdEnc')
+router.register('v2/ProduccionDet',ProduccionDetViewSet, base_name='ProdDet')
+router.register('v2/CatTM',CatTMViewSet,base_name='CatTM')
+router.register('v2/CausaTM',CausaTMViewSet,base_name='CausaTM')
 
 
 urlpatterns = [
