@@ -1,0 +1,148 @@
+{% extends 'base/base.html' %}
+{% block page_content %}
+{% if form.errors %}
+    {% for field in form %}
+        {% if field.errors %}
+            <div class="alert alert-danger fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {% for error in field.errors %}
+                    <strong>{{ error|escape }}</strong>
+            {% endfor %}
+            </div>
+        {% endif %} 
+    {% endfor %}
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {% for error in form.non_field_errors %}
+            
+                <strong>{{ error|escape }}</strong>
+        {% endfor %}
+        </div>
+    {% endif %}
+{% endif %}
+
+{% if object %}
+<form method="POST" action="{% url 'nomina:nomina_edit' object.pk %}">
+{% else %}
+<form method="POST" action="{% url 'nomina:nomina_new' %}">
+    {% endif %}
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                {% if object %} Editar {% else %} Nueva {% endif %} Nomina
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                    {% csrf_token %}
+                    <div class="col-md-4">
+                        <div class="form-group has-success">
+                            <label class="control-label" for="inputSuccess">Fecha</label>
+                            {{ form.fecha_nomina }}
+                            <small class="text-danger">{{form.errors.fecha_nomina}}</small>
+                            {% if form.fecha_nomina.errors %}
+                                {% for error in form.fecha_nomina.errors %}
+                                    <small class="text-danger">{{ error|escape }} </small>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group has-success">
+                            <label class="control-label" for="inputSuccess">Planta</label>
+                            {{ form.planta }}
+                            <small class="text-danger">{{form.errors.planta}}</small>
+                        </div>
+                    </div> 
+                    <div class="col-md-4">
+                        <div class="form-group has-success">
+                            <label class="control-label" for="inputSuccess">Area</label>
+                            {{ form.area }}
+                            <small class="text-danger">{{form.errors.area}}</small>
+                        </div>
+                    </div> 
+                    <div class="col-md-4">
+                        <div class="form-group has-success">
+                            <label class="control-label" for="inputSuccess">Linea</label>
+                            {{ form.linea }}
+                            <small class="text-danger">{{form.errors.linea}}</small>
+                        </div>
+                    </div> 
+                    <div class="col-md-4">
+                        <div class="form-group has-success">
+                            <label class="control-label" for="inputSuccess">Grupo</label>
+                            {{ form.grupo }}
+                            <small class="text-danger">{{form.errors.grupo}}</small>
+                        </div>
+                    </div> 
+                    <div class="col-md-4">
+                        <div class="form-group has-success">
+                            <label class="control-label" for="inputSuccess">Supervisor</label>
+                            {{ form.supervisor }}
+                            <small class="text-danger">{{form.errors.supervisor}}</small>
+                        </div>
+                    </div> 
+                    <div class="col-md-4">
+                        <div class="form-group has-success">
+                            <label class="control-label" for="inputSuccess">Semana</label>
+                            {{ form.semana }}
+                            <small class="text-danger">{{form.errors.semana}}</small>
+                        </div>
+                    </div> 
+
+                    {{ detalle_nomina.management_form }}
+                    <table class="table">
+                        <thead>
+                            <td class="text-center">Concepto</td>
+                            <td class="text-center">Cantidad</td>
+                            <td class="text-center">Borrar</td>
+                        </thead>
+                        <tbody>
+                            {% for detalle in detalle_nomina %}
+                            <tr>
+                                <td>{{ detalle.concepto }}</td>
+                                <td> {{ detalle.cantidad }}
+                                    {% if detalle.cantidad.errors %}
+                                        {% for error in detalle.cantidad.errors %}
+                                            <small class="text-danger">{{ error|escape }} </small>
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+<!--                                 <td>
+                                    {{ detalle.precio }}
+                                    {% if detalle.precio.errors %}
+                                        {% for error in detalle.precio.errors %}
+                                            <small class="text-danger">{{ error|escape }} </small>
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td> {{ detalle.total }} </td> -->
+                                <td>{{  detalle.DELETE }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+            <div class="panel-footer">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-social-icon btn-danger" name="submit"><i class="fa fa-save"></i> Guardar</button>
+                    <a class="btn btn-social-icon btn-warning" href="{% url 'nomina:nomina_list' %}"><i class="fa fa-times"></i> Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock page_content %}
+{% block js_page %}
+<script> 
+    $(function () {
+        $("#fecha_nomina, #id_fecha_nomina").datetimepicker({
+            format: 'Y-m-d',
+            timepicker:false,
+            datepicker:true
+        });
+        
+        $("#sidebarToggle").click();
+    }
+  
+</script>
+{% endblock %}
