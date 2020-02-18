@@ -6,7 +6,7 @@ from .models import NominaEnc, NominaDet, ConceptoNomina
 class NominaEncForm(forms.ModelForm):
     fecha_nomina =forms.DateInput()
     planta=forms.TextInput()
-    #plantilla=forms.TextInput()
+    plantilla=forms.TextInput()
 
     class Meta:
         model=NominaEnc
@@ -16,7 +16,6 @@ class NominaEncForm(forms.ModelForm):
             'linea','grupo',
             'supervisor',
             'semana',
-            'plantilla'
             
         
         ]

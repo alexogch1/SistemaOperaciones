@@ -153,7 +153,7 @@ class NominaEnc(models.Model):
     grupo=models.CharField(choices=GRUPO_CHOICES, max_length=30, blank=True, null =True)
     supervisor=models.ForeignKey(SupervisorNomina, on_delete=models.CASCADE, to_field='nombre_supervisor')
     semana = models.IntegerField(default=1 )
-    plantilla = models.IntegerField(default=0)
+    
     total_percepciones = models.DecimalField(default=0.0,max_digits=6, decimal_places=2)
     total_deducciones = models.DecimalField(default=0.0,max_digits=6, decimal_places=2)
     
@@ -169,7 +169,7 @@ class NominaDet(models.Model):
 
     nomina = models.ForeignKey(NominaEnc, on_delete=models.CASCADE)
     concepto=models.ForeignKey(ConceptoNomina, on_delete=models.CASCADE, to_field='concepto')
-    cantidad =models.FloatField(default=0.0)
+    cantidad =models.DecimalField(default=0.0, max_digits=6, decimal_places=2)
     
 
     def __str__(self):

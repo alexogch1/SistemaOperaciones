@@ -16,7 +16,6 @@ class NominaEncForm(forms.ModelForm):
             'linea','grupo',
             'supervisor',
             'semana',
-            'plantilla'
             
         
         ]

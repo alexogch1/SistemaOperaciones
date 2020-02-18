@@ -14,10 +14,10 @@ class NominaList(generic.ListView):
     template_name='nomina/nomina_list.html'
     context_object_name='nomina'
 
-class NominaNew(SinPrivilegios, generic.CreateView):
+class NominaNew(SinPrivilegios ,generic.CreateView):
     permission_required='nomina.add_nominaenc'
     model=NominaEnc
-    login_url='generales:home'
+    login_url='general:home'
     template_name='nomina/nomina_form.html'
     form_class=NominaEncForm
     success_url=reverse_lazy('nomina:nomina_list')
@@ -61,7 +61,7 @@ class NominaNew(SinPrivilegios, generic.CreateView):
 class NominaEdit(SinPrivilegios,generic.UpdateView):
     permission_required='nomina.change_nominaenc'
     model=NominaEnc
-    login_url='generales:home'
+    login_url='general:home'
     template_name='nomina/nomina_form.html'
     form_class=NominaEncForm
     success_url=reverse_lazy('nomina:nomina_list')

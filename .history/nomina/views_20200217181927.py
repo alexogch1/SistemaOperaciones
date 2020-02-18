@@ -14,7 +14,7 @@ class NominaList(generic.ListView):
     template_name='nomina/nomina_list.html'
     context_object_name='nomina'
 
-class NominaNew(SinPrivilegios, generic.CreateView):
+class NominaNew( generic.CreateView):
     permission_required='nomina.add_nominaenc'
     model=NominaEnc
     login_url='generales:home'

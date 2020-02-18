@@ -169,7 +169,7 @@ class NominaDet(models.Model):
 
     nomina = models.ForeignKey(NominaEnc, on_delete=models.CASCADE)
     concepto=models.ForeignKey(ConceptoNomina, on_delete=models.CASCADE, to_field='concepto')
-    cantidad =models.FloatField(default=0.0)
+    cantidad =models.DecimalField(default=0.0, max_digits=8, decimal_places=2)
     
 
     def __str__(self):
