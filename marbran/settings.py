@@ -25,7 +25,7 @@ SECRET_KEY = 'axndzq^n-s28yh8^oj#6c-p5nd^*z41m*q@cu-v4hno=r1tw(g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # local comentado, en servidor descomentado
-ALLOWED_HOSTS = ['34.69.197.12','34.69.98.250', 'marbranreports.ml', '127.0.0.1', 'localhost'] 
+ALLOWED_HOSTS = [ 'marbranreports.ml', '127.0.0.1'] 
 
 
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'textos',
     'catalogos',
     'operaciones',
+    'nomina',
     'inv',
     'plantas',
     'salidas',

@@ -11,6 +11,7 @@ urlpatterns = [
     path ('plantas/', include(('plantas.urls', 'plantas'), namespace = 'plantas')),
     path ('tmuertos/', include(('tmuertos.urls', 'tmuertos'), namespace = 'tmuertos')),
     path ('operaciones/', include(('operaciones.urls', 'operaciones'), namespace = 'operaciones')),
+    path ('nomina/', include(('nomina.urls', 'nomina'), namespace = 'nomina')),
     path ('apis/', include(('apis.urls', 'apis'), namespace = 'apis')),
     path ('admin/', admin.site.urls),
     path ('coreapi-docs/',include_docs_urls(title='Documentacion CoreAPI MarBran')),
