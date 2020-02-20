@@ -30,6 +30,3 @@ class Home (LoginRequiredMixin, generic.TemplateView):
 class HomeSinPrivilegios (LoginRequiredMixin, generic.TemplateView):
     template_name = 'generales/sin_privilegios.html'
     
-class Mision (LoginRequiredMixin, generic.TemplateView):
-    template_name = 'generales/mision.html'
-    login_url = 'generales:login'

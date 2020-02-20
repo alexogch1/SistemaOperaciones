@@ -15,3 +15,7 @@ from django.views import generic
 class Mision (LoginRequiredMixin, generic.TemplateView):
     template_name = 'textos/mision.html'
     login_url = 'generales:login'
+
+class Vision (LoginRequiredMixin, generic.TemplateView):
+    template_name = 'textos/vision.html'
+    login_url = 'generales:login'
