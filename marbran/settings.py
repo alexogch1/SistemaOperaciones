@@ -23,10 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'axndzq^n-s28yh8^oj#6c-p5nd^*z41m*q@cu-v4hno=r1tw(g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# local comentado, en servidor descomentado
-ALLOWED_HOSTS = [ 'marbranreports.ml', '127.0.0.1'] 
+DEBUG = False
+# local comentado, en servidor descomentado 
 
+ALLOWED_HOSTS = ['marbranreports.ml', '127.0.0.1', 'localhost'] 
 
 
 # Application definition
@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'marbran.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':'db_marbrantest',
+        'NAME':'db_marbran',
         'USER': 'postgres',
         'PASSWORD': '123456',
         'HOST':'127.0.0.1',
