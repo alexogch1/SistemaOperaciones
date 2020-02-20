@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 
 from textos.views import  Mision, Vision, Valores, PoliCal, Core,ValorCliente,\
-    ValorAccionistas, ValorAsociados, FoodDefense
+    ValorAccionistas, ValorAsociados
 
 
 urlpatterns = [
@@ -15,6 +15,5 @@ urlpatterns = [
     path('valor_cliente/',ValorCliente.as_view(), name='valor_cliente'),
     path('valor_accionistas/',ValorAccionistas.as_view(), name='valor_accionistas'),
     path('valor_asociados/',ValorAsociados.as_view(), name='valor_asociados'),
-    path('food_defense/',FoodDefense.as_view(), name='food_defense'),
  
 ]

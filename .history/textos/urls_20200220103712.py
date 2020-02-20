@@ -15,6 +15,6 @@ urlpatterns = [
     path('valor_cliente/',ValorCliente.as_view(), name='valor_cliente'),
     path('valor_accionistas/',ValorAccionistas.as_view(), name='valor_accionistas'),
     path('valor_asociados/',ValorAsociados.as_view(), name='valor_asociados'),
-    path('food_defense/',FoodDefense.as_view(), name='food_defense'),
+    path('food_defense/',Food.as_view(), name='food_defense'),
  
 ]

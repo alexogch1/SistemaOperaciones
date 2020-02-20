@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 
 from textos.views import  Mision, Vision, Valores, PoliCal, Core,ValorCliente,\
-    ValorAccionistas, ValorAsociados, FoodDefense
+    ValorAccionista
 
 
 urlpatterns = [
@@ -13,8 +13,6 @@ urlpatterns = [
     path('politica_calidad/',PoliCal.as_view(), name='politica_calidad'),
     path('core_business/',Core.as_view(), name='core_business'),
     path('valor_cliente/',ValorCliente.as_view(), name='valor_cliente'),
-    path('valor_accionistas/',ValorAccionistas.as_view(), name='valor_accionistas'),
-    path('valor_asociados/',ValorAsociados.as_view(), name='valor_asociados'),
-    path('food_defense/',FoodDefense.as_view(), name='food_defense'),
+    path('valor_accionista/',ValorAccionista.as_view(), name='valor_accionista'),
  
 ]

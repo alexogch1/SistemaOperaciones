@@ -35,15 +35,3 @@ class Core (LoginRequiredMixin, generic.TemplateView):
 class ValorCliente (LoginRequiredMixin, generic.TemplateView):
     template_name = 'textos/valor_cliente.html'
     login_url = 'generales:login'
-
-class ValorAccionistas (LoginRequiredMixin, generic.TemplateView):
-    template_name = 'textos/valor_accionistas.html'
-    login_url = 'generales:login'
-
-class ValorAsociados (LoginRequiredMixin, generic.TemplateView):
-    template_name = 'textos/valor_asociados.html'
-    login_url = 'generales:login'
-
-class FoodDefense (LoginRequiredMixin, generic.TemplateView):
-    template_name = 'textos/food_defense.html'
-    login_url = 'generales:login'
