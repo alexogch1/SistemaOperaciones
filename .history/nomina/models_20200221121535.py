@@ -50,7 +50,6 @@ class AreaNomina(ClaseModelo):
         super(AreaNomina,self).save()
 
     class Meta():
-        verbose_name_plural = 'Areas Nomina' 
 
 class lineaNomina(ClaseModelo):
     id_linea =models.CharField(
@@ -141,7 +140,7 @@ class NominaEnc(ClaseModelo):
         verbose_name_plural ="Encabezados Nomina"
         verbose_name = "Encabezado Nomina"
 
-class NominaDet(ClaseModelo):
+class NominaDet(models.Model):
 
     nomina = models.ForeignKey(NominaEnc, on_delete=models.CASCADE)
     concepto=models.ForeignKey(ConceptoNomina, on_delete=models.CASCADE, to_field='concepto')
