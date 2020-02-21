@@ -141,7 +141,7 @@ class NominaEnc(models.Model):
         verbose_name_plural ="Encabezados Nomina"
         verbose_name = "Encabezado Nomina"
 
-class NominaDet(models.Model):
+class NominaDet(ClaseModelo):
 
     nomina = models.ForeignKey(NominaEnc, on_delete=models.CASCADE)
     concepto=models.ForeignKey(ConceptoNomina, on_delete=models.CASCADE, to_field='concepto')
