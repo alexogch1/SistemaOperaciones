@@ -50,6 +50,7 @@ class AreaNomina(ClaseModelo):
         super(AreaNomina,self).save()
 
     class Meta():
+        verbose_name_plural = 'Areas Nomina' 
 
 class lineaNomina(ClaseModelo):
     id_linea =models.CharField(
