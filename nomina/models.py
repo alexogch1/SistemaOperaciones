@@ -111,7 +111,7 @@ class ConceptoNomina(ClaseModelo):
         return '{}'.format (self.concepto)
 
 
-class NominaEnc(ClaseModelo):
+class NominaEnc(models.Model):
     G1 = "PERSONAL"
     G2 = "SUPERVISOR"
     G3 ="AUXILIAR"
@@ -141,7 +141,7 @@ class NominaEnc(ClaseModelo):
         verbose_name_plural ="Encabezados Nomina"
         verbose_name = "Encabezado Nomina"
 
-class NominaDet(ClaseModelo):
+class NominaDet(models.Model):
 
     nomina = models.ForeignKey(NominaEnc, on_delete=models.CASCADE)
     concepto=models.ForeignKey(ConceptoNomina, on_delete=models.CASCADE, to_field='concepto')

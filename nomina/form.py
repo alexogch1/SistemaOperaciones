@@ -16,7 +16,8 @@ class NominaEncForm(forms.ModelForm):
             'linea','grupo',
             'supervisor',
             'semana',
-            'plantilla'
+            'plantilla',
+            
             
         
         ]
@@ -39,6 +40,7 @@ class NominaDetForm(forms.ModelForm):
         fields=[
             'concepto',
             'cantidad'
+            
         ]
     
     def __init__(self, *args, **kwargs):
