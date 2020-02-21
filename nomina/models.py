@@ -110,30 +110,6 @@ class ConceptoNomina(ClaseModelo):
     def __str__ (self):
         return '{}'.format (self.concepto)
 
-class Nomina(ClaseModelo):
-    G1 = "PERSONAL"
-    G2 = "SUPERVISOR"
-    G3 ="AUXILIAR"
-
-    GRUPO_CHOICES = (
-        (G1, 'PERSONAL'),
-        (G2, 'SUPERVISOR'),
-        (G3, 'AUXILIAR'),
-    )
-
-    fecha= models.DateField(null=True, blank=True)
-    planta =models.ForeignKey(PlantaNomina, on_delete=models.CASCADE)
-    area=models.ForeignKey(AreaNomina, on_delete=models.CASCADE)
-    linea =models.ForeignKey(lineaNomina, on_delete=models.CASCADE)
-    grupo=models.CharField(choices=GRUPO_CHOICES, max_length=30, blank=True, null =True)
-    supervisor=models.ForeignKey(SupervisorNomina, on_delete=models.CASCADE)
-    semana = models.IntegerField(default=1 )
-    concepto=models.ForeignKey(ConceptoNomina,on_delete=models.CASCADE)
-    cantidad = models.FloatField(default=0.0)
-
-    
-    def __str__ (self):
-        return '{}-{}'.format (self.planta, self.linea)
 
 class NominaEnc(ClaseModelo):
     G1 = "PERSONAL"
