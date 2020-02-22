@@ -11,6 +11,7 @@ from .form import NominaEncForm, NominaDetForm, DetalleNominaFormSet
 from .models import NominaEnc, NominaDet
 
 class NominaCompletaList(generic.ListView):
+    #model=NominaEnc
     template_name='nomina/nomina_completa.html'
     context_object_name='nomina'
     queryset = NominaEnc.objects.all()

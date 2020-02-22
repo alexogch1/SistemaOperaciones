@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-
 from django.views import generic
 from generales.views import SinPrivilegios
 from .form import NominaEncForm, NominaDetForm, DetalleNominaFormSet
@@ -11,6 +10,7 @@ from .form import NominaEncForm, NominaDetForm, DetalleNominaFormSet
 from .models import NominaEnc, NominaDet
 
 class NominaCompletaList(generic.ListView):
+    #model=NominaEnc
     template_name='nomina/nomina_completa.html'
     context_object_name='nomina'
     queryset = NominaEnc.objects.all()
@@ -21,7 +21,7 @@ class NominaCompletaList(generic.ListView):
         context['encabezado'] = self.queryset
         return context
 
-class NominaList( generic.ListView):
+class NominaList(generic.ListView):
     model=NominaEnc
     template_name='nomina/nomina_list.html'
     context_object_name='nomina'
