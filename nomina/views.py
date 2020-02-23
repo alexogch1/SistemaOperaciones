@@ -4,6 +4,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
+from .filters import NominaFiltro
+
 from django.views import generic
 from generales.views import SinPrivilegios
 from .form import NominaEncForm, NominaDetForm, DetalleNominaFormSet
@@ -24,7 +26,12 @@ class NominaCompletaList(generic.ListView):
 class NominaList( generic.ListView):
     model=NominaEnc
     template_name='nomina/nomina_list.html'
-    context_object_name='nomina'
+    #context_object_name='nomina'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter']=NominaFiltro(self.request.GET, queryset=self.get_queryset())
+        return context
 
 class NominaNew(SinPrivilegios, generic.CreateView):
     permission_required='nomina.add_nominaenc'
