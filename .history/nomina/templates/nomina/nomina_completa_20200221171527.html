@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+
+{% block page_content %}
+
+<head>
+    <title>My pathpage!</title>
+</head>
+<body>
+    <h1>Encabezado!</h1>
+    <ul>
+{% for encabezado in encabezados %}
+    <li>{{ encabezado.property1 }}</li>
+{% endfor %}
+    </ul>
+
+    <h1>detalles!</h1>
+    <ul>
+{% for detalle in detalles %}
+    <li>{{ detalle.property1 }}</li>
+{% endfor %}
+    </ul>
+</body>
+
+{% endblock %}

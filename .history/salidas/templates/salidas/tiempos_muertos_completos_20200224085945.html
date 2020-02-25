@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+
+{% block page_content %}
+DETALLES DE TIEMPOS MUERTOS
+
+{% for enc in obj %}
+{{ enc.fecha_produccion }}
+{{ enc.planta }}
+
+{{ enc.linea }}
+{{ enc.supervisor }}
+
+{% for det in enc.detalles.all %}
+{{ det.tiempo_muerto }}
+{{ det.causa }}
+{{ det.cantidad }}
+{% endfor%}
+
+{% endfor %}
+
+{% endblock %}

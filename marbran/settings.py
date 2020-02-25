@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'dbbackup_ui',
     'djangosecure',
+    'django_filters',
+    'bootstrapform'
 ]
 
 MIDDLEWARE = [
