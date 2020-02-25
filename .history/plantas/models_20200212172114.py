@@ -48,7 +48,7 @@ class Linea(ClaseModelo):
     )
 
     def __str__(self):
-        return '{}'.format(self.descripcion)
+        return '{}:{}'.format(self.planta.descripcion, self.descripcion)
 
     def save(self):
         self.descripcion = self.descripcion.upper()
@@ -75,7 +75,7 @@ class Supervisor(ClaseModelo):
     )
 
     def __str__(self):
-        return '{}'.format(self.descripcion)
+        return '{}:{}'.format(self.planta.descripcion, self.descripcion)
 
     def save(self):
         self.descripcion = self.descripcion.upper()
@@ -102,7 +102,7 @@ class Operador(ClaseModelo):
     )
 
     def __str__(self):
-        return '{}'.format(self.descripcion)
+        return '{}:{}'.format(self.planta.descripcion, self.descripcion)
 
     def save(self):
         self.descripcion = self.descripcion.upper()
@@ -135,7 +135,7 @@ class Bascula(ClaseModelo):
     )
 
     def __str__(self):
-        return '{}'.format(self.descripcion)
+        return '{}:{}'.format(self.linea.descripcion, self.descripcion)
 
     def save(self):
         self.descripcion = self.descripcion.upper()
@@ -167,7 +167,7 @@ class Formadora(ClaseModelo):
     )
 
     def __str__(self):
-        return '{}'.format(self.descripcion)
+        return '{}:{}'.format(self.linea.descripcion, self.descripcion)
 
     def save(self):
         self.descripcion = self.descripcion.upper()

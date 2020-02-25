@@ -1,16 +1,17 @@
 {% extends 'base/base.html' %}
 
 {% block page_content %}
-nomina
+DETALLES DE TIEMPOS MUERTOS
 
-{% for enc in nomina %}
-{{ enc.supervisor }}
+{% for enc in obj %}
+{{ enc.fecha_produccion|date:'d/m/Y' }}
 {{ enc.planta }}
-{{ enc.area }}
 {{ enc.linea }}
+{{ enc.supervisor }}
 
 {% for det in enc.detalles.all %}
-{{ det.concepto }}
+
+{{ det.causa }}
 {{ det.cantidad }}
 {% endfor %}
 

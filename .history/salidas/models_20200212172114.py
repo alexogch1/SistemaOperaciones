@@ -195,7 +195,7 @@ class TiempoMuertoEnc(ClaseModelo):
         verbose_name = "Encabezado Tiempo Muerto"
 
 class TiempoMuertonDet(ClaseModelo):
-    tiempo_muerto = models.ForeignKey(TiempoMuertoEnc, related_name='detalles', on_delete=models.CASCADE)
+    tiempo_muerto = models.ForeignKey(TiempoMuertoEnc, on_delete=models.CASCADE)
     causa = models.ForeignKey(CausaTM, on_delete=models.CASCADE)
     obs = models.CharField(max_length=100, null=True, )
     cantidad =models.IntegerField(default=0)

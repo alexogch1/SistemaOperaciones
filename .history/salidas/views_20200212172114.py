@@ -181,19 +181,6 @@ class TiempoMuertoView(SinPrivilegios, generic.ListView):
     permission_required="salidas.view_tmuertosenc"
 
 
-class TiempoMuertoCompletoList(generic.ListView):
-        
-    template_name='salidas/tiempos_muertos_completos.html'
-    context_object_name='obj'
-    queryset = TiempoMuertoEnc.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super(TiempoMuertoCompletoList, self).get_context_data(**kwargs)
-        context['detalles'] = TiempoMuertonDet.objects.all()
-        context['encabezado'] = self.queryset
-        return context
-
-
 @login_required(login_url='/login/')
 @permission_required('salidas.view_tmuertosenc', login_url='generales:sin_privilegios')
 def tiempos_muertos(request,tiempo_muerto_id=None):
@@ -244,6 +231,7 @@ def tiempos_muertos(request,tiempo_muerto_id=None):
         plant=Planta.objects.get(pk=planta)
         line=Linea.objects.get(pk=linea)
         spvs=Supervisor.objects.get(pk=supervisor)
+        
         
 
         if not tiempo_muerto_id:

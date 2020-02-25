@@ -181,15 +181,16 @@ class TiempoMuertoView(SinPrivilegios, generic.ListView):
     permission_required="salidas.view_tmuertosenc"
 
 
-class TiempoMuertoCompletoList(generic.ListView):
-        
+class TiempoMuertoCompletoList(SinPrivilegios, generic.ListView):
+    #model = TiempoMuertoEnc
+    permission_required="salidas.view_tmuertosenc"
     template_name='salidas/tiempos_muertos_completos.html'
     context_object_name='obj'
     queryset = TiempoMuertoEnc.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super(TiempoMuertoCompletoList, self).get_context_data(**kwargs)
-        context['detalles'] = TiempoMuertonDet.objects.all()
+        context['detalle'] = TiempoMuertonDet.objects.all()
         context['encabezado'] = self.queryset
         return context
 

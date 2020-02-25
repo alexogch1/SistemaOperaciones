@@ -182,7 +182,8 @@ class TiempoMuertoView(SinPrivilegios, generic.ListView):
 
 
 class TiempoMuertoCompletoList(generic.ListView):
-        
+    #model = TiempoMuertoEnc
+    
     template_name='salidas/tiempos_muertos_completos.html'
     context_object_name='obj'
     queryset = TiempoMuertoEnc.objects.all()

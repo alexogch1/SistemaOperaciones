@@ -11,7 +11,7 @@ from .views import ProduccionView, produccion, ProduccionDetDelete, \
     
 from .reportes import reporte_produccion, imprimir_produccion_esp, imprimir_tiempos_muertos_esp,\
     reporte_tiempos_muertos
-from.reportes_excel import ReporteTmXls
+from.reportes_excel import TiempoMuertoCompletoXls
         
 
     
@@ -33,7 +33,7 @@ urlpatterns = [
     path('salidas/tiempo-muerto/edit/<int:tiempo_muerto_id>',tiempos_muertos, name="tiempos_muertos_edit"),
     path('salidas/tiempo-muerto/<int:tiempo_muerto_id>/delete/<int:pk>',TiempoMuertoDetDelete.as_view(), name="tiempos_muertos_del"),
     path('salidas/tiempo-muerto/estado/<int:id>', tiempo_muerto_inactivar, name="TiempoMuerto_Inactivar"),
-    path('salidas/tiempo_muerto_completo_excel', ReporteTmXls.as_view(), name="tiempos_muertos_completos_excel"),
+    path('salidas/tiempo_muerto_completo_excel', TiempoMuertoCompletoXls.as_view(), name="tiempos_muertos_completos_excel"),
 
 
     path('salidas/tiempo-muerto/listado', reporte_tiempos_muertos, name='tiempos_muertos_print_all'),

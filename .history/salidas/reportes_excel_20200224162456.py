@@ -100,7 +100,7 @@ class ReporteTmXls(TemplateView):
                                     top=Side(border_style='thin'), bottom=Side(border_style='thin'))
                 ws.cell(row=controlador,column=4).fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
                 ws.cell(row=controlador,column=4).font = Font(name='calibri', size=11, bold=True)
-                ws.cell(row=controlador,column=4).value=str(det)
+                ws.cell(row=controlador,column=4).value=str(det.concepto)
 
 
             #contador+=1

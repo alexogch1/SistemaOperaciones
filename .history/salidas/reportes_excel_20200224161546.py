@@ -75,7 +75,7 @@ class ReporteTmXls(TemplateView):
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))
         ws['C6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
         ws['C6'].font = Font(name='calibri', size=11, bold=True)
-        ws['C6']='Planta'
+        ws['C6']=<
 
         controlador = 7
         for q in query:
@@ -92,16 +92,6 @@ class ReporteTmXls(TemplateView):
             ws.cell(row=controlador,column=3).fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
             ws.cell(row=controlador,column=3).font = Font(name='calibri', size=11, bold=True)
             ws.cell(row=controlador,column=3).value=str(q.linea)
-
-            for det in q.detalles:
-
-                ws.cell(row=controlador,column=4).alignment= Alignment(horizontal='center', vertical='center')
-                ws.cell(row=controlador,column=4).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                    top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-                ws.cell(row=controlador,column=4).fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-                ws.cell(row=controlador,column=4).font = Font(name='calibri', size=11, bold=True)
-                ws.cell(row=controlador,column=4).value=str(det)
-
 
             #contador+=1
             controlador +=1
