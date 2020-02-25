@@ -4,19 +4,15 @@ from django.views .generic.base import TemplateView
 from django.http.response import HttpResponse
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Border,Font,PatternFill,Side
-import datetime
+from django.utils import timezone
 
 from django.views import generic
 
 
 from .models import TiempoMuertoEnc, TiempoMuertonDet
-from tmuertos.models import CausaTM, CausaTM
 
 class ReporteTmXls(TemplateView):
     def get (self, request, *args, **kwargs):
-
-        today =  datetime.datetime.now()
-        today = today.strftime('%Y-%m-%d')
 
         query = TiempoMuertonDet.objects.all()
         wb = Workbook()
@@ -33,7 +29,7 @@ class ReporteTmXls(TemplateView):
 
         ws['B1'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
         ws['B1'].font = Font(name='calibri', size=12, bold=True)
-        ws['B1']='Mar Bran S.A. de C.V.'
+        ws['B1']='Company'
 
         ws.merge_cells('B1:F1')
 
@@ -43,7 +39,7 @@ class ReporteTmXls(TemplateView):
 
         ws['B2'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
         ws['B2'].font = Font(name='calibri', size=12, bold=True)
-        ws['B2']='Innovación, Mejora Continua y Six Sigma'
+        ws['B2']='Department'
 
         ws.merge_cells('B2:F2')
         ws['B3'].alignment= Alignment(horizontal='left', vertical='center')
@@ -54,23 +50,6 @@ class ReporteTmXls(TemplateView):
         ws['B3'].font = Font(name='calibri', size=12, bold=True)
         ws['B3']='Reporte de Tiempos Muertos'
 
- 
-        ws['G3'].alignment= Alignment(horizontal='left', vertical='center')
-        ws['G3'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-
-        ws['G3'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
-        ws['G3'].font = Font(name='calibri', size=12, bold=True)
-        ws['G3']='FECHA'
-
-        ws['H3'].alignment= Alignment(horizontal='left', vertical='center')
-        ws['H3'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-
-        ws['H3'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
-        ws['H3'].font = Font(name='calibri', size=12, bold=True)
-        ws['H3']=today
-
         ws.merge_cells('B3:F3')
 
         ws.row_dimensions[1].height=20
@@ -80,12 +59,7 @@ class ReporteTmXls(TemplateView):
         ws.column_dimensions['B'].width=20
         ws.column_dimensions['C'].width=20
         ws.column_dimensions['D'].width=20
-        ws.column_dimensions['E'].width=30
-        ws.column_dimensions['F'].width=20
-        ws.column_dimensions['G'].width=60
-        ws.column_dimensions['H'].width=60
-        ws.column_dimensions['G'].width=20
-        ws.column_dimensions['J'].width=60
+        ws.column_dimensions['E'].width=20
 
 
         ws['B6'].alignment= Alignment(horizontal='center', vertical='center')
@@ -124,65 +98,40 @@ class ReporteTmXls(TemplateView):
         ws['F6'].font = Font(name='calibri', size=11, bold=True)
         ws['F6']='Turno'
 
-
         ws['G6'].alignment= Alignment(horizontal='center', vertical='center')
         ws['G6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))
         ws['G6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
         ws['G6'].font = Font(name='calibri', size=11, bold=True)
-        ws['G6']='Categora'
-        
+        ws['G6']='Causa'
+
         ws['H6'].alignment= Alignment(horizontal='center', vertical='center')
         ws['H6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))
         ws['H6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
         ws['H6'].font = Font(name='calibri', size=11, bold=True)
-        ws['H6']='Causa'
-        
-        ws['I6'].alignment= Alignment(horizontal='center', vertical='center')
-        ws['I6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-        ws['I6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-        ws['I6'].font = Font(name='calibri', size=11, bold=True)
-        ws['I6']='Tiempo (min)'
-
-        ws['J6'].alignment= Alignment(horizontal='center', vertical='center')
-        ws['J6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-        ws['J6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-        ws['J6'].font = Font(name='calibri', size=11, bold=True)
-        ws['J6']='Obs'
+        ws['H6']='Observaciones'
 
         controlador = 7
         for q in query:
 
-            causa = q.causa
-            query3 = CausaTM.objects.filter(descripcion=causa).first()
-
-            categoria=query3.categoriaTM
             ws.cell(row=controlador,column=7).alignment= Alignment(horizontal='center', vertical='center')
             ws.cell(row=controlador,column=7).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                                 top=Side(border_style='thin'), bottom=Side(border_style='thin'))
             ws.cell(row=controlador,column=7).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=7).value=str(categoria)
+            ws.cell(row=controlador,column=7).value=str(q.causa)
 
             ws.cell(row=controlador,column=8).alignment= Alignment(horizontal='center', vertical='center')
             ws.cell(row=controlador,column=8).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                                 top=Side(border_style='thin'), bottom=Side(border_style='thin'))
             ws.cell(row=controlador,column=8).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=8).value=str(q.causa)
+            ws.cell(row=controlador,column=8).value=q.cantidad
 
-            ws.cell(row=controlador,column=9).alignment= Alignment(horizontal='center', vertical='center')
-            ws.cell(row=controlador,column=9).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
+            ws.cell(row=controlador,column=8).alignment= Alignment(horizontal='center', vertical='center')
+            ws.cell(row=controlador,column=8).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                                 top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            ws.cell(row=controlador,column=9).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=9).value=q.cantidad
-
-            ws.cell(row=controlador,column=10).alignment= Alignment(horizontal='center', vertical='center')
-            ws.cell(row=controlador,column=10).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            ws.cell(row=controlador,column=10).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=10).value=q.obs
+            ws.cell(row=controlador,column=8).font = Font(name='calibri', size=11, bold=True)
+            ws.cell(row=controlador,column=8).value=q.obs
 
             id_enc= q.tiempo_muerto_id
 

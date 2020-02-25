@@ -18,6 +18,7 @@ class ReporteTmXls(TemplateView):
         today =  datetime.datetime.now()
         today = today.strftime('%Y-%m-%d')
 
+        print('la fecha de hoy es ', today)
         query = TiempoMuertonDet.objects.all()
         wb = Workbook()
 
@@ -63,6 +64,7 @@ class ReporteTmXls(TemplateView):
         ws['G3'].font = Font(name='calibri', size=12, bold=True)
         ws['G3']='FECHA'
 
+ 
         ws['H3'].alignment= Alignment(horizontal='left', vertical='center')
         ws['H3'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))

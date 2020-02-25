@@ -18,6 +18,7 @@ class ReporteTmXls(TemplateView):
         today =  datetime.datetime.now()
         today = today.strftime('%Y-%m-%d')
 
+        print('la fecha de hoy es ', today)
         query = TiempoMuertonDet.objects.all()
         wb = Workbook()
 
@@ -54,22 +55,14 @@ class ReporteTmXls(TemplateView):
         ws['B3'].font = Font(name='calibri', size=12, bold=True)
         ws['B3']='Reporte de Tiempos Muertos'
 
- 
-        ws['G3'].alignment= Alignment(horizontal='left', vertical='center')
-        ws['G3'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
+        ws.merge_cells('B5:C5')
+        ws['B5'].alignment= Alignment(horizontal='left', vertical='center')
+        ws['B5'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))
 
-        ws['G3'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
-        ws['G3'].font = Font(name='calibri', size=12, bold=True)
-        ws['G3']='FECHA'
-
-        ws['H3'].alignment= Alignment(horizontal='left', vertical='center')
-        ws['H3'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-
-        ws['H3'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
-        ws['H3'].font = Font(name='calibri', size=12, bold=True)
-        ws['H3']=today
+        ws['B5'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
+        ws['B5'].font = Font(name='calibri', size=12, bold=True)
+        ws['B5']=today
 
         ws.merge_cells('B3:F3')
 

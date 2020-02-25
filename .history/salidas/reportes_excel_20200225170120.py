@@ -4,7 +4,7 @@ from django.views .generic.base import TemplateView
 from django.http.response import HttpResponse
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Border,Font,PatternFill,Side
-import datetime
+from django.utils import timezone
 
 from django.views import generic
 
@@ -14,9 +14,6 @@ from tmuertos.models import CausaTM, CausaTM
 
 class ReporteTmXls(TemplateView):
     def get (self, request, *args, **kwargs):
-
-        today =  datetime.datetime.now()
-        today = today.strftime('%Y-%m-%d')
 
         query = TiempoMuertonDet.objects.all()
         wb = Workbook()
@@ -33,7 +30,7 @@ class ReporteTmXls(TemplateView):
 
         ws['B1'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
         ws['B1'].font = Font(name='calibri', size=12, bold=True)
-        ws['B1']='Mar Bran S.A. de C.V.'
+        ws['B1']='Company'
 
         ws.merge_cells('B1:F1')
 
@@ -43,7 +40,7 @@ class ReporteTmXls(TemplateView):
 
         ws['B2'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
         ws['B2'].font = Font(name='calibri', size=12, bold=True)
-        ws['B2']='Innovación, Mejora Continua y Six Sigma'
+        ws['B2']='Department'
 
         ws.merge_cells('B2:F2')
         ws['B3'].alignment= Alignment(horizontal='left', vertical='center')
@@ -53,23 +50,6 @@ class ReporteTmXls(TemplateView):
         ws['B3'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
         ws['B3'].font = Font(name='calibri', size=12, bold=True)
         ws['B3']='Reporte de Tiempos Muertos'
-
- 
-        ws['G3'].alignment= Alignment(horizontal='left', vertical='center')
-        ws['G3'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-
-        ws['G3'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
-        ws['G3'].font = Font(name='calibri', size=12, bold=True)
-        ws['G3']='FECHA'
-
-        ws['H3'].alignment= Alignment(horizontal='left', vertical='center')
-        ws['H3'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-
-        ws['H3'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
-        ws['H3'].font = Font(name='calibri', size=12, bold=True)
-        ws['H3']=today
 
         ws.merge_cells('B3:F3')
 
