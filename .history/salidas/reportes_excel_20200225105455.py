@@ -1,0 +1,109 @@
+from django.shortcuts import render
+
+from django.views .generic.base import TemplateView
+from django.http.response import HttpResponse
+from openpyxl import Workbook
+from openpyxl.styles import Alignment, Border,Font,PatternFill,Side
+from django.utils import timezone
+
+from django.views import generic
+
+
+from .models import TiempoMuertoEnc, TiempoMuertonDet
+
+class ReporteTmXls(TemplateView):
+    def get (self, request, *args, **kwargs):
+
+        query = TiempoMuertonDet.objects.all()
+        wb = Workbook()
+
+        ws = wb.active
+        ws.tittle='Tiempos Muertos'
+
+
+        #Establer el nombre del archivo
+        nombre_archivo = "Reporte Tiempos Muertosw.xlsx"
+        ws['B1'].alignment= Alignment(horizontal='left', vertical='center')
+        ws['B1'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
+                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+
+        ws['B1'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
+        ws['B1'].font = Font(name='calibri', size=12, bold=True)
+        ws['B1']='Company'
+
+        ws.merge_cells('B1:F1')
+
+        ws['B2'].alignment= Alignment(horizontal='left', vertical='center')
+        ws['B2'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
+                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+
+        ws['B2'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
+        ws['B2'].font = Font(name='calibri', size=12, bold=True)
+        ws['B2']='Department'
+
+        ws.merge_cells('B2:F2')
+        ws['B3'].alignment= Alignment(horizontal='left', vertical='center')
+        ws['B3'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
+                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+
+        ws['B3'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
+        ws['B3'].font = Font(name='calibri', size=12, bold=True)
+        ws['B3']='Reporte de Tiempos Muertos'
+
+        ws.merge_cells('B3:F3')
+
+        ws.row_dimensions[1].height=20
+        ws.row_dimensions[2].height=20
+        ws.row_dimensions[3].height=20
+
+        ws.column_dimensions['B'].width=20
+        ws.column_dimensions['C'].width=20
+        ws.column_dimensions['D'].width=20
+        ws.column_dimensions['E'].width=20
+
+
+        ws['B6'].alignment= Alignment(horizontal='center', vertical='center')
+        ws['B6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
+                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+        ws['B6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
+        ws['B6'].font = Font(name='calibri', size=11, bold=True)
+        ws['B6']='Fecha'
+
+
+        ws['C6'].alignment= Alignment(horizontal='center', vertical='center')
+        ws['C6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
+                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+        ws['C6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
+        ws['C6'].font = Font(name='calibri', size=11, bold=True)
+        ws['C6']='Planta'
+
+        controlador = 7
+        for q in query:
+            ws.cell(row=controlador,column=5).alignment= Alignment(horizontal='center', vertical='center')
+            ws.cell(row=controlador,column=5).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
+                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+            ws.cell(row=controlador,column=5).fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
+            ws.cell(row=controlador,column=5).font = Font(name='calibri', size=11, bold=True)
+            ws.cell(row=controlador,column=5).value=q.cantidad
+
+            ws.cell(row=controlador,column=4).alignment= Alignment(horizontal='center', vertical='center')
+            ws.cell(row=controlador,column=4).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
+                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+            ws.cell(row=controlador,column=4).fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
+            ws.cell(row=controlador,column=4).font = Font(name='calibri', size=11, bold=True)
+            ws.cell(row=controlador,column=4).value=str(q.causa)
+
+
+            for y in q.id:
+                print(y.tiempo_muerto_id)
+
+            controlador +=1
+
+        response = HttpResponse(content_type='application/ms-excel')
+        contenido = "attachment; filename = {0}".format(nombre_archivo)
+        response["Content-Disposition"] = contenido
+        wb.save(response)
+        return response
+
+
+

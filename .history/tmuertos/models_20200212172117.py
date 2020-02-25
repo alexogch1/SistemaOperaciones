@@ -59,7 +59,7 @@ class CausaTM(ClaseModelo):
     )
 
     def __str__(self):
-        return '{}'.format(self.descripcion)
+        return '{}:{}'.format(self.categoriaTM.descripcion, self.descripcion)
 
     def save(self):
         self.descripcion = self.descripcion.upper()

@@ -89,7 +89,7 @@ class ReporteTmXls(TemplateView):
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))
         ws['E6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
         ws['E6'].font = Font(name='calibri', size=11, bold=True)
-        ws['E6']='Supervisor'
+        ws['E6']='supervisor'
 
         ws['F6'].alignment= Alignment(horizontal='center', vertical='center')
         ws['F6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
@@ -105,20 +105,13 @@ class ReporteTmXls(TemplateView):
         ws['G6'].font = Font(name='calibri', size=11, bold=True)
         ws['G6']='Causa'
 
-        ws['H6'].alignment= Alignment(horizontal='center', vertical='center')
-        ws['H6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-        ws['H6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-        ws['H6'].font = Font(name='calibri', size=11, bold=True)
-        ws['H6']='Observaciones'
-
         controlador = 7
         for q in query:
 
             ws.cell(row=controlador,column=7).alignment= Alignment(horizontal='center', vertical='center')
             ws.cell(row=controlador,column=7).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                                 top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            
+            ws.cell(row=controlador,column=7).fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
             ws.cell(row=controlador,column=7).font = Font(name='calibri', size=11, bold=True)
             ws.cell(row=controlador,column=7).value=str(q.causa)
 

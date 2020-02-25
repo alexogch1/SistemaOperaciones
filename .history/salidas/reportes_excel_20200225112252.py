@@ -77,57 +77,22 @@ class ReporteTmXls(TemplateView):
         ws['C6'].font = Font(name='calibri', size=11, bold=True)
         ws['C6']='Planta'
 
-        ws['D6'].alignment= Alignment(horizontal='center', vertical='center')
-        ws['D6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-        ws['D6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-        ws['D6'].font = Font(name='calibri', size=11, bold=True)
-        ws['D6']='Línea'
-
-        ws['E6'].alignment= Alignment(horizontal='center', vertical='center')
-        ws['E6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-        ws['E6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-        ws['E6'].font = Font(name='calibri', size=11, bold=True)
-        ws['E6']='Supervisor'
-
-        ws['F6'].alignment= Alignment(horizontal='center', vertical='center')
-        ws['F6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-        ws['F6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-        ws['F6'].font = Font(name='calibri', size=11, bold=True)
-        ws['F6']='Turno'
-
-        ws['G6'].alignment= Alignment(horizontal='center', vertical='center')
-        ws['G6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-        ws['G6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-        ws['G6'].font = Font(name='calibri', size=11, bold=True)
-        ws['G6']='Causa'
-
-        ws['H6'].alignment= Alignment(horizontal='center', vertical='center')
-        ws['H6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-        ws['H6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-        ws['H6'].font = Font(name='calibri', size=11, bold=True)
-        ws['H6']='Observaciones'
-
         controlador = 7
         for q in query:
 
             ws.cell(row=controlador,column=7).alignment= Alignment(horizontal='center', vertical='center')
             ws.cell(row=controlador,column=7).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                                 top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            
+            ws.cell(row=controlador,column=7).fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
             ws.cell(row=controlador,column=7).font = Font(name='calibri', size=11, bold=True)
             ws.cell(row=controlador,column=7).value=str(q.causa)
 
-            ws.cell(row=controlador,column=8).alignment= Alignment(horizontal='center', vertical='center')
-            ws.cell(row=controlador,column=8).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
+            ws.cell(row=controlador,column=7).alignment= Alignment(horizontal='center', vertical='center')
+            ws.cell(row=controlador,column=7).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                                 top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            ws.cell(row=controlador,column=8).fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-            ws.cell(row=controlador,column=8).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=8).value=q.cantidad
+            ws.cell(row=controlador,column=7).fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
+            ws.cell(row=controlador,column=7).font = Font(name='calibri', size=11, bold=True)
+            ws.cell(row=controlador,column=7).value=q.cantidad
 
             ws.cell(row=controlador,column=8).alignment= Alignment(horizontal='center', vertical='center')
             ws.cell(row=controlador,column=8).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
@@ -164,19 +129,13 @@ class ReporteTmXls(TemplateView):
                 ws.cell(row=controlador,column=4).font = Font(name='calibri', size=11, bold=True)
                 ws.cell(row=controlador,column=4).value=str(x.linea)
 
-                ws.cell(row=controlador,column=5).alignment= Alignment(horizontal='center', vertical='center')
-                ws.cell(row=controlador,column=5).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
+                ws.cell(row=controlador,column=4).alignment= Alignment(horizontal='center', vertical='center')
+                ws.cell(row=controlador,column=4).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                                 top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-                ws.cell(row=controlador,column=5).fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-                ws.cell(row=controlador,column=5).font = Font(name='calibri', size=11, bold=True)
-                ws.cell(row=controlador,column=5).value=str(x.supervisor)
+                ws.cell(row=controlador,column=4).fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
+                ws.cell(row=controlador,column=4).font = Font(name='calibri', size=11, bold=True)
+                ws.cell(row=controlador,column=4).value=str(x.supervisor)
 
-                ws.cell(row=controlador,column=6).alignment= Alignment(horizontal='center', vertical='center')
-                ws.cell(row=controlador,column=6).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-                ws.cell(row=controlador,column=6).fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-                ws.cell(row=controlador,column=6).font = Font(name='calibri', size=11, bold=True)
-                ws.cell(row=controlador,column=6).value=str(x.turno)
 
             controlador +=1
 
