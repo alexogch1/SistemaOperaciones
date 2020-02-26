@@ -291,19 +291,13 @@ class ReporteProdEmbXls(TemplateView):
         ws.column_dimensions['B'].width=20
         ws.column_dimensions['C'].width=20
         ws.column_dimensions['D'].width=20
-        ws.column_dimensions['E'].width=20
+        ws.column_dimensions['E'].width=30
         ws.column_dimensions['F'].width=20
+        ws.column_dimensions['G'].width=60
+        ws.column_dimensions['H'].width=60
         ws.column_dimensions['G'].width=20
-        ws.column_dimensions['H'].width=20
-        ws.column_dimensions['G'].width=20
-        ws.column_dimensions['H'].width=20
-        ws.column_dimensions['I'].width=20
-        ws.column_dimensions['G'].width=20
-        ws.column_dimensions['J'].width=20
-        ws.column_dimensions['K'].width=20
-        ws.column_dimensions['L'].width=20
-        ws.column_dimensions['M'].width=20
-        ws.column_dimensions['O'].width=20
+        ws.column_dimensions['J'].width=60
+
 
         ws['B6'].alignment= Alignment(horizontal='center', vertical='center')
         ws['B6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
@@ -396,14 +390,7 @@ class ReporteProdEmbXls(TemplateView):
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))
         ws['N6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
         ws['N6'].font = Font(name='calibri', size=11, bold=True)
-        ws['N6']='Utilizado (lbs)'  
-    
-        ws['O6'].alignment= Alignment(horizontal='center', vertical='center')
-        ws['O6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-        ws['O6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-        ws['O6'].font = Font(name='calibri', size=11, bold=True)
-        ws['O6']='merma (%)'  
+        ws['N6']='Merma(%)'  
 
         controlador = 7
         for q in query:
@@ -439,32 +426,11 @@ class ReporteProdEmbXls(TemplateView):
             ws.cell(row=controlador,column=12).font = Font(name='calibri', size=11, bold=True)
             ws.cell(row=controlador,column=12).value=q.resto
 
-            produccion = (float(q.peso)*float(q.cantidad)) + float(q.resto)
             ws.cell(row=controlador,column=13).alignment= Alignment(horizontal='center', vertical='center')
             ws.cell(row=controlador,column=13).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                                 top=Side(border_style='thin'), bottom=Side(border_style='thin'))
             ws.cell(row=controlador,column=13).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=13).value=produccion
-
-            produccion = (float(q.peso)*float(q.cantidad)) + float(q.resto)
-            ws.cell(row=controlador,column=13).alignment= Alignment(horizontal='center', vertical='center')
-            ws.cell(row=controlador,column=13).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            ws.cell(row=controlador,column=13).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=13).value=produccion
-
-            ws.cell(row=controlador,column=14).alignment= Alignment(horizontal='center', vertical='center')
-            ws.cell(row=controlador,column=14).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            ws.cell(row=controlador,column=14).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=14).value=q.total_utilizado
-
-            merma = 100-(float(produccion)/float(q.total_utilizado)*100)
-            ws.cell(row=controlador,column=15).alignment= Alignment(horizontal='center', vertical='center')
-            ws.cell(row=controlador,column=15).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            ws.cell(row=controlador,column=15).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=15).value=merma
+            ws.cell(row=controlador,column=13).value=(q.peso+q*q.cantidad) + q.resto
 
             id_enc= q.produccion_id
             query2 = ProduccionEnc.objects.filter(id=id_enc)
