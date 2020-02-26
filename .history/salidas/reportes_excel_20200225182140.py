@@ -243,15 +243,17 @@ class ReporteProdEmbXls(TemplateView):
 
 
         #Establer el nombre del archivo
-        nombre_archivo = str(today)  + "Reporte Producción Embolslados.xlsx"
+        nombre_archivo = str(toda)  + "Reporte Producción Embolslados.xlsx"
         ws['B1'].alignment= Alignment(horizontal='left', vertical='center')
         ws['B1'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+
         ws['B1'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
         ws['B1'].font = Font(name='calibri', size=12, bold=True)
         ws['B1']='Mar Bran S.A. de C.V.'
 
         ws.merge_cells('B1:F1')
+
         ws['B2'].alignment= Alignment(horizontal='left', vertical='center')
         ws['B2'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))
@@ -259,10 +261,12 @@ class ReporteProdEmbXls(TemplateView):
         ws['B2'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
         ws['B2'].font = Font(name='calibri', size=12, bold=True)
         ws['B2']='Innovación, Mejora Continua y Six Sigma'
+
         ws.merge_cells('B2:F2')
         ws['B3'].alignment= Alignment(horizontal='left', vertical='center')
         ws['B3'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+
         ws['B3'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
         ws['B3'].font = Font(name='calibri', size=12, bold=True)
         ws['B3']='Reporte de Producción Embolsados'
@@ -271,6 +275,7 @@ class ReporteProdEmbXls(TemplateView):
         ws['G3'].alignment= Alignment(horizontal='left', vertical='center')
         ws['G3'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+
         ws['G3'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
         ws['G3'].font = Font(name='calibri', size=12, bold=True)
         ws['G3']='FECHA'
@@ -278,6 +283,7 @@ class ReporteProdEmbXls(TemplateView):
         ws['H3'].alignment= Alignment(horizontal='left', vertical='center')
         ws['H3'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+
         ws['H3'].fill = PatternFill(start_color='66FFCC', end_color='66FFCC', fill_type='solid')
         ws['H3'].font = Font(name='calibri', size=12, bold=True)
         ws['H3']=today
@@ -291,19 +297,13 @@ class ReporteProdEmbXls(TemplateView):
         ws.column_dimensions['B'].width=20
         ws.column_dimensions['C'].width=20
         ws.column_dimensions['D'].width=20
-        ws.column_dimensions['E'].width=20
+        ws.column_dimensions['E'].width=30
         ws.column_dimensions['F'].width=20
+        ws.column_dimensions['G'].width=60
+        ws.column_dimensions['H'].width=60
         ws.column_dimensions['G'].width=20
-        ws.column_dimensions['H'].width=20
-        ws.column_dimensions['G'].width=20
-        ws.column_dimensions['H'].width=20
-        ws.column_dimensions['I'].width=20
-        ws.column_dimensions['G'].width=20
-        ws.column_dimensions['J'].width=20
-        ws.column_dimensions['K'].width=20
-        ws.column_dimensions['L'].width=20
-        ws.column_dimensions['M'].width=20
-        ws.column_dimensions['O'].width=20
+        ws.column_dimensions['J'].width=60
+
 
         ws['B6'].alignment= Alignment(horizontal='center', vertical='center')
         ws['B6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
@@ -396,78 +396,42 @@ class ReporteProdEmbXls(TemplateView):
                             top=Side(border_style='thin'), bottom=Side(border_style='thin'))
         ws['N6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
         ws['N6'].font = Font(name='calibri', size=11, bold=True)
-        ws['N6']='Utilizado (lbs)'  
-    
-        ws['O6'].alignment= Alignment(horizontal='center', vertical='center')
-        ws['O6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                            top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-        ws['O6'].fill = PatternFill(start_color='66CFCC', end_color='66CFCC', fill_type='solid')
-        ws['O6'].font = Font(name='calibri', size=11, bold=True)
-        ws['O6']='merma (%)'  
-
-        controlador = 7
+        ws['N6']='Merma(%)'  
+        """ controlador = 7
         for q in query:
+
+            causa = q.causa
+            query3 = CausaTM.objects.filter(descripcion=causa).first()
+
+            categoria=query3.categoriaTM
+            ws.cell(row=controlador,column=7).alignment= Alignment(horizontal='center', vertical='center')
+            ws.cell(row=controlador,column=7).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
+                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+            ws.cell(row=controlador,column=7).font = Font(name='calibri', size=11, bold=True)
+            ws.cell(row=controlador,column=7).value=str(categoria)
 
             ws.cell(row=controlador,column=8).alignment= Alignment(horizontal='center', vertical='center')
             ws.cell(row=controlador,column=8).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                                 top=Side(border_style='thin'), bottom=Side(border_style='thin'))
             ws.cell(row=controlador,column=8).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=8).value=str(q.tproducto)
+            ws.cell(row=controlador,column=8).value=str(q.causa)
 
             ws.cell(row=controlador,column=9).alignment= Alignment(horizontal='center', vertical='center')
             ws.cell(row=controlador,column=9).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                                 top=Side(border_style='thin'), bottom=Side(border_style='thin'))
             ws.cell(row=controlador,column=9).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=9).value=str(q.producto)
+            ws.cell(row=controlador,column=9).value=q.cantidad
 
             ws.cell(row=controlador,column=10).alignment= Alignment(horizontal='center', vertical='center')
             ws.cell(row=controlador,column=10).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                                 top=Side(border_style='thin'), bottom=Side(border_style='thin'))
             ws.cell(row=controlador,column=10).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=10).value=q.peso
+            ws.cell(row=controlador,column=10).value=q.obs
 
-            ws.cell(row=controlador,column=11).alignment= Alignment(horizontal='center', vertical='center')
-            ws.cell(row=controlador,column=11).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            ws.cell(row=controlador,column=11).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=11).value=q.cantidad
+            id_enc= q.tiempo_muerto_id
 
+            query2 = TiempoMuertoEnc.objects.filter(id=id_enc)
 
-            ws.cell(row=controlador,column=12).alignment= Alignment(horizontal='center', vertical='center')
-            ws.cell(row=controlador,column=12).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            ws.cell(row=controlador,column=12).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=12).value=q.resto
-
-            produccion = (float(q.peso)*float(q.cantidad)) + float(q.resto)
-            ws.cell(row=controlador,column=13).alignment= Alignment(horizontal='center', vertical='center')
-            ws.cell(row=controlador,column=13).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            ws.cell(row=controlador,column=13).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=13).value=produccion
-
-            produccion = (float(q.peso)*float(q.cantidad)) + float(q.resto)
-            ws.cell(row=controlador,column=13).alignment= Alignment(horizontal='center', vertical='center')
-            ws.cell(row=controlador,column=13).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            ws.cell(row=controlador,column=13).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=13).value=produccion
-
-            ws.cell(row=controlador,column=14).alignment= Alignment(horizontal='center', vertical='center')
-            ws.cell(row=controlador,column=14).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            ws.cell(row=controlador,column=14).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=14).value=q.total_utilizado
-
-            merma = 100-(float(produccion)/float(q.total_utilizado)*100)
-            ws.cell(row=controlador,column=15).alignment= Alignment(horizontal='center', vertical='center')
-            ws.cell(row=controlador,column=15).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-            ws.cell(row=controlador,column=15).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=15).value=merma
-
-            id_enc= q.produccion_id
-            query2 = ProduccionEnc.objects.filter(id=id_enc)
             for x in query2:
 
                 ws.cell(row=controlador,column=2).alignment= Alignment(horizontal='center', vertical='center')
@@ -475,46 +439,36 @@ class ReporteProdEmbXls(TemplateView):
                                     top=Side(border_style='thin'), bottom=Side(border_style='thin'))
                 ws.cell(row=controlador,column=2).font = Font(name='calibri', size=11, bold=True)
                 ws.cell(row=controlador,column=2).value=x.fecha_produccion
-
+                
                 ws.cell(row=controlador,column=3).alignment= Alignment(horizontal='center', vertical='center')
                 ws.cell(row=controlador,column=3).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                    top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
                 ws.cell(row=controlador,column=3).font = Font(name='calibri', size=11, bold=True)
                 ws.cell(row=controlador,column=3).value=str(x.planta)
 
                 ws.cell(row=controlador,column=4).alignment= Alignment(horizontal='center', vertical='center')
                 ws.cell(row=controlador,column=4).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                    top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
                 ws.cell(row=controlador,column=4).font = Font(name='calibri', size=11, bold=True)
                 ws.cell(row=controlador,column=4).value=str(x.linea)
 
                 ws.cell(row=controlador,column=5).alignment= Alignment(horizontal='center', vertical='center')
                 ws.cell(row=controlador,column=5).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                    top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
                 ws.cell(row=controlador,column=5).font = Font(name='calibri', size=11, bold=True)
                 ws.cell(row=controlador,column=5).value=str(x.supervisor)
 
-
                 ws.cell(row=controlador,column=6).alignment= Alignment(horizontal='center', vertical='center')
                 ws.cell(row=controlador,column=6).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                    top=Side(border_style='thin'), bottom=Side(border_style='thin'))
+                                top=Side(border_style='thin'), bottom=Side(border_style='thin'))
                 ws.cell(row=controlador,column=6).font = Font(name='calibri', size=11, bold=True)
                 ws.cell(row=controlador,column=6).value=str(x.turno)
 
-                ws.cell(row=controlador,column=7).alignment= Alignment(horizontal='center', vertical='center')
-                ws.cell(row=controlador,column=7).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
-                                    top=Side(border_style='thin'), bottom=Side(border_style='thin'))
-                ws.cell(row=controlador,column=7).font = Font(name='calibri', size=11, bold=True)
-                ws.cell(row=controlador,column=7).value=str(x.plantilla)
-            controlador +=1
-
-
-
-
-
+            controlador +=1 """
 
         response = HttpResponse(content_type='application/ms-excel')
         contenido = "attachment; filename = {0}".format(nombre_archivo)
         response["Content-Disposition"] = contenido
         wb.save(response)
         return response
+

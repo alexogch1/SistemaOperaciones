@@ -291,19 +291,13 @@ class ReporteProdEmbXls(TemplateView):
         ws.column_dimensions['B'].width=20
         ws.column_dimensions['C'].width=20
         ws.column_dimensions['D'].width=20
-        ws.column_dimensions['E'].width=20
+        ws.column_dimensions['E'].width=30
         ws.column_dimensions['F'].width=20
+        ws.column_dimensions['G'].width=60
+        ws.column_dimensions['H'].width=60
         ws.column_dimensions['G'].width=20
-        ws.column_dimensions['H'].width=20
-        ws.column_dimensions['G'].width=20
-        ws.column_dimensions['H'].width=20
-        ws.column_dimensions['I'].width=20
-        ws.column_dimensions['G'].width=20
-        ws.column_dimensions['J'].width=20
-        ws.column_dimensions['K'].width=20
-        ws.column_dimensions['L'].width=20
-        ws.column_dimensions['M'].width=20
-        ws.column_dimensions['O'].width=20
+        ws.column_dimensions['J'].width=60
+
 
         ws['B6'].alignment= Alignment(horizontal='center', vertical='center')
         ws['B6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),

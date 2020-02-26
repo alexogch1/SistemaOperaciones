@@ -291,19 +291,13 @@ class ReporteProdEmbXls(TemplateView):
         ws.column_dimensions['B'].width=20
         ws.column_dimensions['C'].width=20
         ws.column_dimensions['D'].width=20
-        ws.column_dimensions['E'].width=20
+        ws.column_dimensions['E'].width=30
         ws.column_dimensions['F'].width=20
+        ws.column_dimensions['G'].width=60
+        ws.column_dimensions['H'].width=60
         ws.column_dimensions['G'].width=20
-        ws.column_dimensions['H'].width=20
-        ws.column_dimensions['G'].width=20
-        ws.column_dimensions['H'].width=20
-        ws.column_dimensions['I'].width=20
-        ws.column_dimensions['G'].width=20
-        ws.column_dimensions['J'].width=20
-        ws.column_dimensions['K'].width=20
-        ws.column_dimensions['L'].width=20
-        ws.column_dimensions['M'].width=20
-        ws.column_dimensions['O'].width=20
+        ws.column_dimensions['J'].width=60
+
 
         ws['B6'].alignment= Alignment(horizontal='center', vertical='center')
         ws['B6'].border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
@@ -459,12 +453,12 @@ class ReporteProdEmbXls(TemplateView):
             ws.cell(row=controlador,column=14).font = Font(name='calibri', size=11, bold=True)
             ws.cell(row=controlador,column=14).value=q.total_utilizado
 
-            merma = 100-(float(produccion)/float(q.total_utilizado)*100)
+            merma = float(produccion)/float(total_utilizado)+100
             ws.cell(row=controlador,column=15).alignment= Alignment(horizontal='center', vertical='center')
             ws.cell(row=controlador,column=15).border =Border(left=Side(border_style='thin'),right=Side(border_style='thin'),
                                 top=Side(border_style='thin'), bottom=Side(border_style='thin'))
             ws.cell(row=controlador,column=15).font = Font(name='calibri', size=11, bold=True)
-            ws.cell(row=controlador,column=15).value=merma
+            ws.cell(row=controlador,column=15).value=q.merma
 
             id_enc= q.produccion_id
             query2 = ProduccionEnc.objects.filter(id=id_enc)
