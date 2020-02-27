@@ -190,14 +190,15 @@ class TiempoMuertoView(SinPrivilegios, generic.ListView):
         context = super(TiempoMuertoView, self).get_context_data(**kwargs)
         initial_date = self.request.GET.get('fecha_inicial')
         final_date = self.request.GET.get('fecha_final')
-        print('fechas', initial_date, final_date)
+        print ('fechas', initial_date, final_date)
 
-
+        final_date= datetime.now()
+        initial_date = final_date - timedelta(days=7)
         if  not initial_date or not final_date:
             context ['obj'] = TiempoMuertoEnc.objects.order_by('-fecha_produccion')[1]    
         else:
-            initial_date = parse(initial_date)
-            final_date = parse(final_date)    
+            #initial_date = parse(initial_date)
+            #final_date = parse(final_date)    
             context['obj'] = TiempoMuertoEnc.objects.filter(fecha_produccion__gte=initial_date, fecha_produccion__lte=final_date )
         return context
         
