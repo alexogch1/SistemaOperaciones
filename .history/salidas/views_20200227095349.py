@@ -1,9 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views import generic
 from django.urls import reverse_lazy
-
-from datetime import datetime
-from datetime import timedelta
+import datetime
 from django.http import HttpResponse
 
 from django.contrib.messages.views import SuccessMessageMixin
@@ -185,22 +183,24 @@ class TiempoMuertoView(SinPrivilegios, generic.ListView):
     context_object_name = "obj"
     permission_required="salidas.view_tmuertosenc"
 
-    
     def get_context_data(self, **kwargs):
         context = super(TiempoMuertoView, self).get_context_data(**kwargs)
-        #initial_date = self.request.GET['fecha_inicial'] 
-        #final_date = self.request.GET['fecha_final']
-
-        final_date= datetime.now()
-        initial_date = final_date - timedelta(days=7)
-        if  not initial_date or not final_date:
-            context ['obj'] = TiempoMuertoEnc.objects.order_by('-fecha_produccion')[1]    
-        else:
-            #initial_date = parse(initial_date)
-            #final_date = parse(final_date)    
-            context['obj'] = TiempoMuertoEnc.objects.filter(fecha_produccion__gte=initial_date, fecha_produccion__lte=final_date )
-        return context
         
+        
+        #print(request.GET.get('campo'))
+        #fecha_sel = request.GET.get('campo')
+        #fecha_sel_parse = parse(fecha_sel)
+        #print('fecha ',fecha_sel_parse.date())
+        
+        
+        initial_date = self.request.GET.get['fecha_inicial']
+        final_date = self.request.GET.get['fecha_final']
+        initial_date = parse(initial_date)
+        final_date = parse(final_date)
+
+        if not initial_date or not final_date:
+            return TiempoMuertoEnc.objects.order_by('-fecha_producción')[20]        
+        return TiempoMuertoEnc.objects.filter(fecha_producción__gte=initial_date, fecha_producción__lte=final_date )
 
 
 

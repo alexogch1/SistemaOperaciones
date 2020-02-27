@@ -1,9 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views import generic
 from django.urls import reverse_lazy
-
-from datetime import datetime
-from datetime import timedelta
+import datetime
 from django.http import HttpResponse
 
 from django.contrib.messages.views import SuccessMessageMixin
@@ -21,9 +19,6 @@ from salidas.forms import ProduccionEncForm, TiempoMuertoEncForm,\
 from generales.views import SinPrivilegios
 from catalogos.models import Producto
 from tmuertos.models import CausaTM
-
-from dateutil.parser import parse
-
 from plantas.models import Planta, Linea, Supervisor, Operador
 
 class ProduccionView(SinPrivilegios, generic.ListView):
@@ -185,22 +180,15 @@ class TiempoMuertoView(SinPrivilegios, generic.ListView):
     context_object_name = "obj"
     permission_required="salidas.view_tmuertosenc"
 
-    
     def get_context_data(self, **kwargs):
         context = super(TiempoMuertoView, self).get_context_data(**kwargs)
-        #initial_date = self.request.GET['fecha_inicial'] 
-        #final_date = self.request.GET['fecha_final']
-
-        final_date= datetime.now()
-        initial_date = final_date - timedelta(days=7)
-        if  not initial_date or not final_date:
-            context ['obj'] = TiempoMuertoEnc.objects.order_by('-fecha_produccion')[1]    
-        else:
-            #initial_date = parse(initial_date)
-            #final_date = parse(final_date)    
-            context['obj'] = TiempoMuertoEnc.objects.filter(fecha_produccion__gte=initial_date, fecha_produccion__lte=final_date )
-        return context
-        
+        initial_date = self.request.GET['fecha_inicial']
+        final_date = self.request.GET['fecha_final']
+        #convertir el string a tipo datetime
+        if not initial_date or not final_date:
+            return TiempoMuertoEnc.objects.order_by('-fecha_producción')[20]
+            #definir fecha inicial y final        
+        return TiempoMuertoEnc.objects.filter(fecha_producción__gte=initial_date, fecha_producción__lte=final_date )
 
 
 
