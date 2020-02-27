@@ -16,11 +16,11 @@ class NominaFiltro(django_filters.FilterSet):
         Model=NominaEnc
         fields={
             'planta':['icontains'],
-            'semana':['icontains']
+            
         }
 
     def filter_by_order(self, queryset, name, value):
-        expresion= 'created' if value =='ascending' else '-created'
+        expresion= 'planta' if value =='ascending' else '-planta'
         return queryset.order_by(expresion)
 
 
