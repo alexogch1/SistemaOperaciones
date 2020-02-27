@@ -192,7 +192,8 @@ class TiempoMuertoView(SinPrivilegios, generic.ListView):
         final_date = self.request.GET.get('fecha_final')
         print('fechas', initial_date, final_date)
 
-
+        final_date= datetime.now()
+        initial_date = final_date - timedelta(days=7)
         if  not initial_date or not final_date:
             context ['obj'] = TiempoMuertoEnc.objects.order_by('-fecha_produccion')[1]    
         else:
