@@ -15,12 +15,12 @@ class NominaFiltro(django_filters.FilterSet):
     class Meta:
         Model=NominaEnc
         fields={
-            'planta':['icontains']
-
+            'planta':['icontains'],
+            'semana':['icontains']
         }
 
     def filter_by_order(self, queryset, name, value):
-        expresion= 'planta' if value =='ascending' else '-planta'
+        expresion= 'created' if value =='ascending' else '-created'
         return queryset.order_by(expresion)
 
 
