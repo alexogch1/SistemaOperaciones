@@ -41,7 +41,7 @@
       {% for item in obj %}
       <tr>
         <td>{{ item.id }}</td>
-        <td>{{ item.fecha_produccion }}</td>
+        <td>{{ item.fecha_produccion|date:'d/m/Y' }}</td>
         <td>{{ item.planta }}</td>
         <td>{{ item.linea }}</td>
         <td>{{ item.Turno }}</td>

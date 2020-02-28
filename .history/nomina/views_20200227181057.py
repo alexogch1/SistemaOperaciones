@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
-#from .filters import NominaFiltro
+from .filters import NominaFiltro
 from dateutil.parser import parse
 
 from django.views import generic
@@ -22,14 +22,14 @@ class NominaCompletaList(generic.ListView):
         context = super(NominaCompletaList, self).get_context_data(**kwargs)
         context['detalles'] = NominaDet.objects.all()
         context['encabezado'] = self.queryset
-        return context 
+        return context
 
-class NominaList(generic.ListView):
+class NominaList( generic.ListView):
     model=NominaEnc
     template_name='nomina/nomina_list.html'
     context_object_name='nomina'
 
-    def get_context_data(self, **kwargs):
+    """ def get_context_data(self, **kwargs):
         context = super(NominaList, self).get_context_data(**kwargs)
         initial_date = self.request.GET.get('fecha_inicial')
         final_date = self.request.GET.get('fecha_final')
@@ -39,8 +39,12 @@ class NominaList(generic.ListView):
             initial_date = parse(initial_date)
             final_date = parse(final_date)    
             context['nomina'] = NominaEnc.objects.filter(fecha_nomina__gte=initial_date, fecha_nomina__lte=final_date )
-        return context
+        return context """
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter']=NominaFiltro(self.request.GET, queryset=self.get_queryset())
+        return context 
 
 class NominaNew(SinPrivilegios, generic.CreateView):
     permission_required='nomina.add_nominaenc'
