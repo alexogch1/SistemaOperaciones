@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
-#from .filters import NominaFiltro
+from .filters import NominaFiltro
 from dateutil.parser import parse
 
 from django.views import generic
@@ -41,10 +41,10 @@ class NominaList( generic.ListView):
             context['nomina'] = NominaEnc.objects.filter(fecha_nomina__gte=initial_date, fecha_nomina__lte=final_date )
         return context """
 
-    #def get_context_data(self, **kwargs):
-        #context = super().get_context_data(**kwargs)
-        #context['filter']=NominaFiltro(self.request.GET, queryset=self.get_queryset())
-        #return context 
+    """ def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter']=NominaFiltro(self.request.GET, queryset=self.get_queryset())
+        return context """
 
 class NominaNew(SinPrivilegios, generic.CreateView):
     permission_required='nomina.add_nominaenc'

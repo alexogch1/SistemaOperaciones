@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
-#from .filters import NominaFiltro
+from .filters import NominaFiltro
 from dateutil.parser import parse
 
 from django.views import generic

@@ -3,13 +3,13 @@
 {% load bootstrap %}
 
 {% block page_content %}
- 
-<form> method='GET'
+<!-- 
+<form method='GET'>
   {{'filtrar por: '}}
   {{ filter.form|bootstrap }}
   <button type="submit" class="btn btn-danger" >search</button>
 </form>
- 
+ -->
 
 <div class="card shadow mb-4">
   <!-- Card Header - Dropdown -->
@@ -30,9 +30,9 @@
   </div>
   <!-- Card Body -->
   <div class="card-body">
-    <!-- {% if not filter %} -->
+    {% if not filter %}
     <div class="alert alert-info">No hay Nominas Registradas</div>
-    <!--{% endif %} -->
+    {% endif %}
     
     <table class="table table-striped table-hover dt-responsive nowrap" style="width:100%">
       <thead>
@@ -84,13 +84,13 @@
       </tbody>
     </table>
 
- <!--  <h5>Ingrese la fecha inicial para mostrar</h5>
+    <h5>Ingrese la fecha inicial para mostrar</h5>
   <form action="{% url 'nomina:nomina_list' %}" method="get">
   <input type="text" label ="id_fecha_inicial" name ="fecha_inicial" placeholder="(AAAA-MM-DD)">
   <h5>Ingrese la fecha final para mostrar</h5>
   <input type="text" label ="id_fecha_final" name ="fecha_final" placeholder="(AAAA-MM-DD)">
   <button class="btn btn-success btn-circle" type="submit"> <i class="far fa-edit"></i></button> 
-  </form> -->
+  </form>
   </div>
 </div>
 {% endblock %}

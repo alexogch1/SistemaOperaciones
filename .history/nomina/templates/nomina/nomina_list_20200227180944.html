@@ -4,7 +4,7 @@
 
 {% block page_content %}
  
-<form> method='GET'
+<form method='GET'>
   {{'filtrar por: '}}
   {{ filter.form|bootstrap }}
   <button type="submit" class="btn btn-danger" >search</button>
@@ -30,9 +30,9 @@
   </div>
   <!-- Card Body -->
   <div class="card-body">
-    <!-- {% if not filter %} -->
+    {% if not filter %}
     <div class="alert alert-info">No hay Nominas Registradas</div>
-    <!--{% endif %} -->
+    {% endif %} -->
     
     <table class="table table-striped table-hover dt-responsive nowrap" style="width:100%">
       <thead>
