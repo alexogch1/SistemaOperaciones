@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'plantas',
     'salidas',
     'tmuertos',
+    'gastos',
     'django_userforeignkey',
     'rest_framework',
     'apis',

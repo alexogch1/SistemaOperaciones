@@ -15,39 +15,37 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='CategoriaTM',
+            name='GastosCuenta',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('estado', models.BooleanField(default=True)),
                 ('fc', models.DateTimeField(auto_now_add=True)),
                 ('fm', models.DateTimeField(auto_now=True)),
                 ('um', models.IntegerField(blank=True, null=True)),
-                ('descripcion', models.CharField(max_length=100, unique=True)),
-                ('id_categoriaTM', models.CharField(max_length=4, unique=True)),
+                ('descripcion_cuenta_gasto', models.CharField(help_text='Descripción Categoria', max_length=100, unique=True)),
+                ('id_cuenta_gasto', models.CharField(help_text='Clave o ID  ', max_length=6, unique=True)),
                 ('uc', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'verbose_name_plural': 'CategoriasTM',
+                'verbose_name_plural': 'Cuentas Gastos',
             },
         ),
         migrations.CreateModel(
-            name='CausaTM',
+            name='GastosSubCuenta',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('estado', models.BooleanField(default=True)),
                 ('fc', models.DateTimeField(auto_now_add=True)),
                 ('fm', models.DateTimeField(auto_now=True)),
                 ('um', models.IntegerField(blank=True, null=True)),
-                ('descripcion', models.CharField(help_text='Descripción de la Categoría', max_length=100, unique=True)),
-                ('id_causaTM', models.CharField(help_text='Id Causa TM', max_length=4, unique=True)),
-                ('tipo', models.CharField(choices=[('Programado', 'Programado'), ('No Programado', 'No Programado'), ('Imprevisto', 'Imprevisto')], default='Programado', max_length=15)),
-                ('tolerancia', models.IntegerField(default=0)),
-                ('categoriaTM', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tmuertos.CategoriaTM')),
+                ('descripcion_subcuenta_gasto', models.CharField(help_text='Descripción SubCuenta', max_length=100)),
+                ('id_subcuenta_gasto', models.CharField(help_text='Clave o ID', max_length=6)),
+                ('cuenta_gasto', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gastos.GastosCuenta', to_field='descripcion_cuenta_gasto')),
                 ('uc', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'verbose_name_plural': 'CausasTM',
-                'unique_together': {('categoriaTM', 'descripcion')},
+                'verbose_name_plural': 'SubCuentas Gastos',
+                'unique_together': {('cuenta_gasto', 'descripcion_subcuenta_gasto')},
             },
         ),
     ]

@@ -80,7 +80,6 @@ class MarcaNew(SinPrivilegios, generic.CreateView):
     form_class = MarcaForm
     success_url = reverse_lazy("catalogos:marca_list")
 
-
     def form_valid(self, form):
         form.instance.uc = self.request.user
         return super().form_valid(form)
