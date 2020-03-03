@@ -1,7 +1,7 @@
 
 from django.urls import path, include
 from .views import CuentaGastosView, CuentaGastosNew, CuentaGastosEdit, cuenta_gastos_inactivar, \
-    SubCuentaGastosView, SubCuentaGastosNew, SuCuentaGastosEdit, subcuenta_gastos_inactivar
+    SubCuentaGastosView, SubCuentaGastosNew, SuCuentaGastosEdit
 
 from .reportes_excel import CuentaGastosXls
 from .reportes_pdf import cuenta_gastos_completo

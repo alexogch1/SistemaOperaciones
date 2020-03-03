@@ -29,7 +29,7 @@ class GastosCuenta(ClaseModelo):
 
 
 class GastosSubCuenta(ClaseModelo):
-    cuenta = models.ForeignKey(GastosCuenta, to_field='descripcion_cuenta_gasto', related_name='detalles', on_delete=models.CASCADE)
+    cuenta_gasto = models.ForeignKey(GastosCuenta,to_field='descripcion_cuenta_gasto' ,on_delete=models.CASCADE)
     descripcion_subcuenta_gasto  = models.CharField(
         max_length = 100,
         help_text = 'Descripción SubCuenta',
@@ -38,7 +38,7 @@ class GastosSubCuenta(ClaseModelo):
 
     id_subcuenta_gasto = models.CharField(
         max_length = 6,
-        help_text = 'Clave o ID',
+        help_text = 'Clave o ID'
         unique = True,
     )
 
@@ -52,4 +52,4 @@ class GastosSubCuenta(ClaseModelo):
         
     class Meta:
         verbose_name_plural = 'SubCuentas Gastos'
-        unique_together = ('cuenta','descripcion_subcuenta_gasto')
+        unique_together = ('cuenta_gasto','descripcion_subcuenta_gasto')

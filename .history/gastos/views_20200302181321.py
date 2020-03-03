@@ -77,7 +77,7 @@ class SubCuentaGastosNew(SinPrivilegios, generic.CreateView):
         form.instance.uc = self.request.user
         return super().form_valid(form)
 
-class SuCuentaGastosEdit(SinPrivilegios, generic.UpdateView):
+class SuVuentaGastosEdit(SinPrivilegios, generic.UpdateView):
     permission_required = "gastos.change_gastossubcuenta"
     model = GastosSubCuenta
     template_name = "gastos/subcuenta_gastos_form.html"
@@ -90,17 +90,17 @@ class SuCuentaGastosEdit(SinPrivilegios, generic.UpdateView):
         form.instance.um = self.request.user.id
         return super().form_valid(form)
 
-
+"""
 @login_required(login_url="/login/")
-@permission_required("gastos.change_gastossubcuenta",login_url="/login/")
-def subcuenta_gastos_inactivar(request,id):
-    subcuenta = GastosSubCuenta.objects.filter(pk=id).first()
+@permission_required("catalogos.change_marca",login_url="/login/")
+def Marca_Inactivar(request,id):
+    marca = Marca.objects.filter(pk=id).first()
 
     if request.method=="POST":
-        if subcuenta:
-            subcuenta.estado = not subcuenta.estado
-            subcuenta.save()
+        if marca:
+            marca.estado = not marca.estado
+            marca.save()
             return HttpResponse("OK")
         return HttpResponse("FAIL")
     
-    return HttpResponse("FAIL")
+    return HttpResponse("FAIL") """

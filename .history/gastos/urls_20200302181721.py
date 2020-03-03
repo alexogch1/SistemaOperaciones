@@ -1,7 +1,7 @@
 
 from django.urls import path, include
 from .views import CuentaGastosView, CuentaGastosNew, CuentaGastosEdit, cuenta_gastos_inactivar, \
-    SubCuentaGastosView, SubCuentaGastosNew, SuCuentaGastosEdit, subcuenta_gastos_inactivar
+    SubCuentaGastosView, SubCuentaGastosNew, SuCuentaGastosEdit
 
 from .reportes_excel import CuentaGastosXls
 from .reportes_pdf import cuenta_gastos_completo
@@ -15,8 +15,7 @@ urlpatterns = [
 
     path('subcuenta/',SubCuentaGastosView.as_view(), name="subcuenta_gastos_list"),
     path('subcuenta/new',SubCuentaGastosNew.as_view(), name="subcuentas_gastos_new"),
-    path('subcuenta/edit/<int:pk>',SuCuentaGastosEdit.as_view(), name="subcuenta_gastos_edit"),
-    path('subcuenta/estado/<int:id>', subcuenta_gastos_inactivar, name="subcuenta_gastos_inactivar"),
+    path('subcuenta/edit/<int:pk>',SuCuentaGastosEdit.as_view(), name="subcuenta_gastos_edit")
  
 
 

@@ -2,7 +2,7 @@
     <div class="modal-content">
         
         {% if obj %}
-        <form role="form" action="{% url 'gastos:subcuenta_gastos_edit' obj.pk %}" method="post"  class="form-inline">
+        <form role="form" action="{% url 'gastos:cuenta_gastos_edit' obj.pk %}" method="post"  class="form-inline">
         {% else %}
         <form role="form" action="{% url 'gastos:subcuentas_gastos_new' %}" method="post"  class="form-inline">
         {% endif %}

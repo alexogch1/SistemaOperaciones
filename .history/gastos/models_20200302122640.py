@@ -29,7 +29,7 @@ class GastosCuenta(ClaseModelo):
 
 
 class GastosSubCuenta(ClaseModelo):
-    cuenta = models.ForeignKey(GastosCuenta, to_field='descripcion_cuenta_gasto', related_name='detalles', on_delete=models.CASCADE)
+    cuenta = models.ForeignKey(GastosCuenta,to_field='descripcion_cuenta_gasto', to_field='descripcion_cuenta_gasto' ,on_delete=models.CASCADE)
     descripcion_subcuenta_gasto  = models.CharField(
         max_length = 100,
         help_text = 'Descripción SubCuenta',

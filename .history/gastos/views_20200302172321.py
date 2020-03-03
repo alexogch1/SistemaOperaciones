@@ -63,10 +63,30 @@ class SubCuentaGastosView(SinPrivilegios, generic.ListView):
     template_name = "gastos/subcuenta_gastos_list.html"
     context_object_name = "obj"
 
+    queryset = GastosCuenta.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(SubCuentaGastosView, self).get_context_data(**kwargs)
+        context['detalles'] = GastosSubCuenta.objects.all()
+        context['encabezado'] = self.queryset
+        return context
+ 
+
+""" class NominaCompletaList(generic.ListView):
+    template_name='nomina/nomina_completa.html'
+    context_object_name='nomina'
+    queryset = NominaEnc.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(NominaCompletaList, self).get_context_data(**kwargs)
+        context['detalles'] = NominaDet.objects.all()
+        context['encabezado'] = self.queryset
+        return context  """
+
 
 
 class SubCuentaGastosNew(SinPrivilegios, generic.CreateView):
-    permission_required = "gastos.add_gastossubcuenta"
+    permission_required = "catalogos.add_gastossubcuenta"
     model = GastosSubCuenta
     template_name = "gastos/subcuenta_gastos_form.html"
     context_object_name = "obj"
@@ -77,13 +97,13 @@ class SubCuentaGastosNew(SinPrivilegios, generic.CreateView):
         form.instance.uc = self.request.user
         return super().form_valid(form)
 
-class SuCuentaGastosEdit(SinPrivilegios, generic.UpdateView):
-    permission_required = "gastos.change_gastossubcuenta"
-    model = GastosSubCuenta
-    template_name = "gastos/subcuenta_gastos_form.html"
+"""class MarcaEdit(SinPrivilegios, generic.UpdateView):
+    permission_required = "catalogos.update_Marca"
+    model = Marca
+    template_name = "catalogos/marca_form.html"
     context_object_name = "obj"
-    form_class = SubCuentaGastosForm
-    success_url = reverse_lazy("gastos:subcuenta_gastos_list")
+    form_class = MarcaForm
+    success_url = reverse_lazy("catalogos:marca_list")
 
 
     def form_valid(self, form):
@@ -92,15 +112,15 @@ class SuCuentaGastosEdit(SinPrivilegios, generic.UpdateView):
 
 
 @login_required(login_url="/login/")
-@permission_required("gastos.change_gastossubcuenta",login_url="/login/")
-def subcuenta_gastos_inactivar(request,id):
-    subcuenta = GastosSubCuenta.objects.filter(pk=id).first()
+@permission_required("catalogos.change_marca",login_url="/login/")
+def Marca_Inactivar(request,id):
+    marca = Marca.objects.filter(pk=id).first()
 
     if request.method=="POST":
-        if subcuenta:
-            subcuenta.estado = not subcuenta.estado
-            subcuenta.save()
+        if marca:
+            marca.estado = not marca.estado
+            marca.save()
             return HttpResponse("OK")
         return HttpResponse("FAIL")
     
-    return HttpResponse("FAIL")
+    return HttpResponse("FAIL") """

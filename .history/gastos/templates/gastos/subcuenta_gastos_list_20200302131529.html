@@ -50,11 +50,17 @@
       <tbody> 
         {% for item in obj %}
         <tr>
-            <td>{{ item.id }}</td>
+            <td>{{ item.detalles.id }}</td>
             <td>{{ item.descripcion_subcuenta_gasto }}</td>
             <td>{{ item.id_subcuenta_gasto }}</td>
-            <td>{{ item.cuenta }}</td>
-            <td >{#item.estado|yesno:"Activo,Inactivo"#}
+            <td>
+              {% for det in item.encabezado.all %}
+              {{ det.id_cuenta }}
+              {% endfor %}
+  
+            </td>
+            
+          <td >{#item.estado|yesno:"Activo,Inactivo"#}
               <div onclick="inactivar({{item.id}})">
                   {% if item.estado %}
                   <i class="far fa-thumbs-up text-primary"></i>
@@ -62,9 +68,9 @@
                   <i class="far fa-thumbs-down text-danger"></i>
                 {% endif %}
               </div>
-            </td>
+            </{{>
             <td>
-            <button class="btn btn-warning btn-circle" onclick="return abrir_modal('{% url 'gastos:subcuenta_gastos_edit' item.id %}')"><i class="far fa-edit"></i></button>
+            <button class="btn btn-warning btn-circle" onclick="return abrir_modal('{% url 'gastos:cuenta_gastos_edit' item.id %}')"><i class="far fa-edit"></i></button>
              
               
             </button>
