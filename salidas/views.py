@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.views import generic
 from django.urls import reverse_lazy
 import datetime
-from datetime import datetime
+#from datetime import datetime - esta linea causa el error necesitamos revisarla
 from datetime import timedelta
 from django.http import HttpResponse
 
