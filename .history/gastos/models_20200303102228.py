@@ -125,11 +125,11 @@ class GastoDet(models.Model):
 
     gasto = models.ForeignKey(GastoEnc, related_name='detalles' ,on_delete=models.CASCADE)
     grupo=models.CharField(choices=GRUPO_CHOICES, max_length=30, blank=False, null =False)
-    subcuenta=models.ForeignKey(GastosSubCuenta, blank=False, null =False, on_delete=models.CASCADE)
+    subcuenta=models.ForeignKey(GastosSubCuenta, blank=False, null =False)
     cantidad =models.FloatField(default=0.0)
     
     def __str__(self):
-        return "{} {}".format(self.gasto, self.grupo)
+        return "{} {} {}".format(self.gasto, self.grupo)
     
     class Meta:
         verbose_name_plural ="Detalles Gastos"

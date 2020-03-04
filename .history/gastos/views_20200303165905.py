@@ -197,12 +197,12 @@ class GastosEdit(SinPrivilegios,generic.UpdateView):
         self.object = self.get_object()
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        detalles =GastoDet.objects.filter(gasto=self.object).order_by('pk')
+        detalles =GastoDet.objects.filter(gastos=self.object).order_by('pk')
         detalles_data = []
         for detalle in detalles:
             d={
                 'grupo':detalle.grupo,
-                'subcuenta':detalle.subcuenta,
+                'concepto':detalle.concepto,
                 'cantidad':detalle.cantidad
             }
             detalles_data.append(d)
@@ -230,7 +230,7 @@ class GastosEdit(SinPrivilegios,generic.UpdateView):
     def form_valid(self, form, detalle_gastos):
         self.object = form.save()
         detalle_gastos.instance =self.object
-        GastoDet.objects.filter(gasto=self.object).delete()
+        GastoDet.objects.filter(gastos=self.object).delete()
         detalle_gastos.save()
         return HttpResponseRedirect(self.get_success_url())
 

@@ -2,7 +2,7 @@
 from django.urls import path, include
 from .views import CuentaGastosView, CuentaGastosNew, CuentaGastosEdit, cuenta_gastos_inactivar, \
     SubCuentaGastosView, SubCuentaGastosNew, SubCuentaGastosEdit, subcuenta_gastos_inactivar, \
-        GastosCompletoList, GastosList, GastosNew,GastosEdit,  GastosDel
+        GastosCompletoList, GastosList, GastosNew, GastosDel
 
 from .reportes_excel import CuentaGastosXls
 from .reportes_pdf import cuenta_gastos_completo
@@ -22,7 +22,7 @@ urlpatterns = [
     path('relacion_gastos/',GastosCompletoList.as_view(), name="relacion_gastos_list"),
     path('listado_gastos/',GastosList.as_view(), name="gastos_list"),
     path('listado_gastos/new',GastosNew.as_view(), name="gastos_new"),
-    path('listado_gastos/edit/<int:pk>',GastosEdit.as_view(), name="gastos_edit"),
+    path('listado_gastos/edit/<int:pk>',GastosList.as_view(), name="gastos_edit"),
     path('listado_gastos/delete/<int:pk>', GastosDel.as_view() ,name="gastos_del")
 
 ]

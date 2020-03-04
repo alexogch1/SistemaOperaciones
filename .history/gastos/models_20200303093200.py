@@ -1,9 +1,11 @@
 from django.db import models
 from django.conf import settings
 
-
 from generales.models import ClaseModelo, ClaseModelo2
 
+def only_month(fecha):
+    
+    return fecha.strftime('%m')
 
 class UnidNegocio(ClaseModelo):
     id_unidad_negocio=models.CharField(
@@ -101,10 +103,10 @@ class GastoEnc(models.Model):
     fecha_registro= models.DateField()
     unidad_negocio =models.ForeignKey(UnidNegocio, on_delete=models.CASCADE, to_field='descripcion_unidad_negocio')
     area=models.ForeignKey(AreaGasto, on_delete=models.CASCADE, to_field='descripcion_area')
-
+    mes = only_month(fecha_registro)
 
     def __str__(self):
-        return' {} {} {}-{}'.format(self.unidad_negocio, self.area, self.fecha_registro.month, self.fecha_registro.year)
+        return' {} {} {} {}'.format(self.unidad_negocio, self.area, self.mes)
     
 
 
@@ -124,12 +126,12 @@ class GastoDet(models.Model):
     )
 
     gasto = models.ForeignKey(GastoEnc, related_name='detalles' ,on_delete=models.CASCADE)
+    concepto=models.ForeignKey(ConceptoNomina, on_delete=models.CASCADE, to_field='concepto')
     grupo=models.CharField(choices=GRUPO_CHOICES, max_length=30, blank=False, null =False)
-    subcuenta=models.ForeignKey(GastosSubCuenta, blank=False, null =False, on_delete=models.CASCADE)
     cantidad =models.FloatField(default=0.0)
     
     def __str__(self):
-        return "{} {}".format(self.gasto, self.grupo)
+        return "{} {} {}".format(self.gasto,self.concepto, self.grupo)
     
     class Meta:
         verbose_name_plural ="Detalles Gastos"

@@ -129,7 +129,7 @@ class GastoDet(models.Model):
     cantidad =models.FloatField(default=0.0)
     
     def __str__(self):
-        return "{} {}".format(self.gasto, self.grupo)
+        return "{} {} {}".format(self.gasto, self.grupo)
     
     class Meta:
         verbose_name_plural ="Detalles Gastos"

@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+
+{% block page_content %}
+Gastos
+
+{% for enc in gastos %}
+{{ enc.fecha_registro|date:'d/m/Y' }}
+{{ enc.unidad_negocio }}
+{{ enc.area }}
+
+
+{% for det in enc.detalles.all %}
+{{ det.grupo }}
+{{ det.subcuenta }}
+{{ det.cantidad }}
+{% endfor %}
+
+{% endfor %}
+
+{% endblock %}

@@ -202,7 +202,7 @@ class GastosEdit(SinPrivilegios,generic.UpdateView):
         for detalle in detalles:
             d={
                 'grupo':detalle.grupo,
-                'subcuenta':detalle.subcuenta,
+                'concepto':detalle.concepto,
                 'cantidad':detalle.cantidad
             }
             detalles_data.append(d)
@@ -230,7 +230,7 @@ class GastosEdit(SinPrivilegios,generic.UpdateView):
     def form_valid(self, form, detalle_gastos):
         self.object = form.save()
         detalle_gastos.instance =self.object
-        GastoDet.objects.filter(gasto=self.object).delete()
+        GastoDet.objects.filter(gastos=self.object).delete()
         detalle_gastos.save()
         return HttpResponseRedirect(self.get_success_url())
 

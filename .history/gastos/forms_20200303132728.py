@@ -95,4 +95,4 @@ class GastosDetForm(forms.ModelForm):
         return cantidad
 
 
-DetalleGastosFormSet=inlineformset_factory(GastoEnc, GastoDet, form=GastosDetForm, extra=1,max_num=200)
+DetalleGastosFormSet=inlineformset_factory(GastoDet, GastoDet, form=GastosDetForm, extra=1,max_num=200)

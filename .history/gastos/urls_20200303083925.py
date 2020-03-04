@@ -1,8 +1,7 @@
 
 from django.urls import path, include
 from .views import CuentaGastosView, CuentaGastosNew, CuentaGastosEdit, cuenta_gastos_inactivar, \
-    SubCuentaGastosView, SubCuentaGastosNew, SubCuentaGastosEdit, subcuenta_gastos_inactivar, \
-        GastosCompletoList, GastosList, GastosNew,GastosEdit,  GastosDel
+    SubCuentaGastosView, SubCuentaGastosNew, SubCuentaGastosEdit, subcuenta_gastos_inactivar
 
 from .reportes_excel import CuentaGastosXls
 from .reportes_pdf import cuenta_gastos_completo
@@ -19,10 +18,11 @@ urlpatterns = [
     path('subcuenta/edit/<int:pk>',SubCuentaGastosEdit.as_view(), name="subcuenta_gastos_edit"),
     path('subcuenta/estado/<int:id>', subcuenta_gastos_inactivar, name="subcuenta_gastos_inactivar"),
  
-    path('relacion_gastos/',GastosCompletoList.as_view(), name="relacion_gastos_list"),
-    path('listado_gastos/',GastosList.as_view(), name="gastos_list"),
-    path('listado_gastos/new',GastosNew.as_view(), name="gastos_new"),
-    path('listado_gastos/edit/<int:pk>',GastosEdit.as_view(), name="gastos_edit"),
-    path('listado_gastos/delete/<int:pk>', GastosDel.as_view() ,name="gastos_del")
+
 
 ]
+"""     
+    
+    path('gastos/estado/<int:id>', cuenta_gastos_inactivar, name="cuenta_gastos_inactivar"),
+    path('gastos/reporte_all_pdf/', cuenta_gastos_completo,name='cuentas_gastos_pdf_all'),
+    path('gastos/reporte_all_excel/', CuentaGastosXls.as_view(),name='cuentas_gastos_xls_all'), """

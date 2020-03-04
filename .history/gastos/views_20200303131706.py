@@ -1,4 +1,3 @@
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse_lazy
@@ -14,7 +13,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 from .models import GastosCuenta, GastosSubCuenta, UnidNegocio, AreaGasto, GastoEnc, GastoDet
 from generales.views import SinPrivilegios
-from .forms import CuentaGastosForm, SubCuentaGastosForm, GastosEncForm, GastosDetForm, DetalleGastosFormSet
+from .forms import CuentaGastosForm, SubCuentaGastosForm
 
 class CuentaGastosView(SinPrivilegios ,generic.ListView):
     model=GastosCuenta
@@ -179,74 +178,3 @@ class GastosNew(SinPrivilegios, generic.CreateView):
                 detalle_gastos=detalle_gastos
             )
         )
-
-class GastosEdit(SinPrivilegios,generic.UpdateView):
-    permission_required='gastos.change_gastoenc'
-    model=GastoEnc
-    login_url='generales:home'
-    template_name='gastos/gastos_form.html'
-    form_class=GastosEncForm
-    success_url=reverse_lazy('gastos:gastos_list')
-
-    def get_success_url(self):
-        from django.urls import reverse
-        return reverse ('gastos:gastos_edit',
-        kwargs={'pk':self.get_object().id})
-
-    def get (self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        detalles =GastoDet.objects.filter(gasto=self.object).order_by('pk')
-        detalles_data = []
-        for detalle in detalles:
-            d={
-                'grupo':detalle.grupo,
-                'subcuenta':detalle.subcuenta,
-                'cantidad':detalle.cantidad
-            }
-            detalles_data.append(d)
-
-        detalle_gastos = DetalleGastosFormSet(initial=detalles_data)
-        detalle_gastos.extra += len(detalles_data)
-        return self.render_to_response(
-            self.get_context_data(
-                form=form,
-                detalle_gastos = detalle_gastos
-            )
-        )
-
-    def post(self,request, *args, **kwargs):
-        self.object = self.get_object()
-        form_class = self.get_form_class()
-        form=self.get_form(form_class)
-        detalle_gastos = DetalleGastosFormSet(request.POST)
-        if form.is_valid() and detalle_gastos.is_valid():
-            return self.form_valid(form, detalle_gastos)
-        else:
-            return self.form_valid(form, detalle_gastos)
-
-        
-    def form_valid(self, form, detalle_gastos):
-        self.object = form.save()
-        detalle_gastos.instance =self.object
-        GastoDet.objects.filter(gasto=self.object).delete()
-        detalle_gastos.save()
-        return HttpResponseRedirect(self.get_success_url())
-
-    def form_invalid(self, form, detalle_gastos):
-        return self.render_to_response(
-            self.get_context_data(
-                form=form, 
-                detalle_gastos=detalle_gastos
-            )
-        ) 
-
-class GastosDel(SinPrivilegios,generic.DeleteView):
-    permission_required='gastos:delete_gastoenc'
-    model= GastoEnc
-    template_name = 'gastos/gastos_del.html'
-    context_object_name='obj'
-    success_url=reverse_lazy('gastos:gastos_list')
-
-    
